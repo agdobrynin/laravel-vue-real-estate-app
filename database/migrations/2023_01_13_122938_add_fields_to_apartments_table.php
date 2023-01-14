@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('listings', function (Blueprint $table) {
+        Schema::table('apartments', function (Blueprint $table) {
             $table->unsignedTinyInteger('beds')
                 ->comment('Count of beds in apartment');
             $table->unsignedTinyInteger('baths')
@@ -38,7 +38,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropColumns('listings', [
+        Schema::dropColumns('apartments', [
             'beds', 'baths', 'area', 'city', 'code', 'street', 'street_nr', 'price'
         ]);
     }
