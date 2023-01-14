@@ -19,4 +19,4 @@ Route::get('/', [IndexController::class, 'index']);
 Route::get('/show', [IndexController::class, 'show']);
 
 Route::resource('apartment', Apartment::class)
-    ->only(['index', 'show']);
+    ->only(['index', 'show', 'create', 'store']);

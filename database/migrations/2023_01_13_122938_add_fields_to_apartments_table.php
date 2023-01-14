@@ -25,7 +25,9 @@ return new class extends Migration
             $table->tinyText('code')
                 ->comment('Post code of apartment address');
             $table->tinyText('street');
-            $table->tinyText('street_nr');
+
+            $table->unsignedInteger('street_nr')
+                ->comment('Street number of apartment number');
 
             $table->unsignedBigInteger('price');
         });

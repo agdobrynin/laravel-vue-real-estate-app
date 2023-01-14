@@ -26,7 +26,7 @@ class Apartment extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Apartment/Create');
     }
 
     /**
@@ -37,7 +37,11 @@ class Apartment extends Controller
      */
     public function store(Request $request)
     {
-        //
+        ApartmentModel::create($request->all());
+
+        return redirect()
+            ->route('apartment.index')
+            ->with('success', 'Apartment was created');
     }
 
     /**
