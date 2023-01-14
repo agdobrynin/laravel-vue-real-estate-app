@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Apartment as ApartmentModel;
+use Illuminate\Http\Request;
 
 class Apartment extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): \Inertia\Response|\Inertia\ResponseFactory
     {
         return inertia('Apartment/Index', [
             'list' => ApartmentModel::all()
@@ -21,23 +19,29 @@ class Apartment extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): \Inertia\Response|\Inertia\ResponseFactory
     {
         return inertia('Apartment/Create');
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        ApartmentModel::create($request->all());
+        ApartmentModel::create(
+            $request->validate([
+                'beds' => 'required|integer|min:0|max:20',
+                'baths' => 'required|integer|min:0|max:20',
+                'area' => 'required|integer|min:12|max:1000',
+                'city' => 'required|string|min:5',
+                'street' => 'required|string|min:5',
+                'code' => 'required|string|min:1',
+                'street_nr' => 'required|integer|min:1',
+                'price' => 'required|integer|min:1',
+            ])
+        );
 
         return redirect()
             ->route('apartment.index')
@@ -46,11 +50,8 @@ class Apartment extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Apartment  $id
-     * @return \Illuminate\Http\Response
      */
-    public function show(ApartmentModel $apartment)
+    public function show(ApartmentModel $apartment): \Inertia\Response|\Inertia\ResponseFactory
     {
         return inertia('Apartment/Show', [
             'apartment' => $apartment
@@ -59,35 +60,46 @@ class Apartment extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ApartmentModel $apartment): \Inertia\Response|\Inertia\ResponseFactory
     {
-        //
+        return inertia('Apartment/Edit', [
+            'apartment' => $apartment
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ApartmentModel $apartment): \Illuminate\Http\RedirectResponse
     {
-        //
+        $apartment->update(
+            $request->validate([
+                'beds' => 'required|integer|min:0|max:20',
+                'baths' => 'required|integer|min:0|max:20',
+                'area' => 'required|integer|min:12|max:1000',
+                'city' => 'required|string|min:5',
+                'street' => 'required|string|min:5',
+                'code' => 'required|string|min:1',
+                'street_nr' => 'required|integer|min:1',
+                'price' => 'required|integer|min:1',
+            ])
+        );
+
+        return redirect()
+            ->route('apartment.show', [$apartment])
+            ->with('success', 'Apartment was updated');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ApartmentModel $apartment): \Illuminate\Http\RedirectResponse
     {
-        //
+        $apartment->delete();
+
+        return redirect()
+            ->route('apartment.index')
+            ->with('success', 'Apartment was deleted');
     }
 }

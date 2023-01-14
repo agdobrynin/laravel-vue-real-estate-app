@@ -1,16 +1,13 @@
 <template>
   <div>
-    <Link href="/">Main page</Link>
+    <Link :href="route('apartment.index')">Show apartments</Link>
     |
-    <Link href="/show">Show page</Link>
-    |
-    <Link href="/apartment">Show apartments</Link>
-    |
-    <Link href="/apartment/create">Create apartment</Link>
+    <Link :href="route('apartment.create')">Create apartment</Link>
 
     <div v-if="flashSuccess" class="success">
       {{ flashSuccess }}
     </div>
+    {{ }}
     <hr />
     <slot />
   </div>

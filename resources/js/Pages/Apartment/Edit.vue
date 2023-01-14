@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="create">
+  <form @submit.prevent="update">
     <div>
       <label for="">Beds</label>
       <input v-model.number="form.beds" type="text" />
@@ -41,7 +41,7 @@
       <div v-if="form.errors.price" class="error"> {{ form.errors.price }}</div>
     </div>
     <div>
-      <button type="submit">Create</button>
+      <button type="submit">Update</button>
     </div>
   </form>
 </template>
@@ -49,18 +49,20 @@
 <script setup>
 import {useForm} from '@inertiajs/inertia-vue3'
 
+const props = defineProps({apartment: Object})
+
 const form = useForm({
-    beds: 1,
-    baths: 0,
-    area: 0,
-    city: null,
-    code: null,
-    street: null,
-    street_nr: null,
-    price: 0,
+    beds: props.apartment.beds,
+    baths: props.apartment.baths,
+    area: props.apartment.area,
+    city: props.apartment.city,
+    code: props.apartment.code,
+    street: props.apartment.street,
+    street_nr: props.apartment.street_nr,
+    price: props.apartment.price,
 })
 
-const create = () => form.post(route('apartment.store'))
+const update = () => form.put(route('apartment.update', {apartment: props.apartment.id}))
 </script>
 
 <style scoped>
