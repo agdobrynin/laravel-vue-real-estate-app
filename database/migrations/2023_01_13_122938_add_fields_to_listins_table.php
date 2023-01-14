@@ -18,15 +18,16 @@ return new class extends Migration
                 ->comment('Count of beds in apartment');
             $table->unsignedTinyInteger('baths')
                 ->comment('Count of bath in apartment');
-            $table->unsignedTinyInteger('area')
+            $table->unsignedSmallInteger('area')
                 ->comment('Total area of apartment');
 
             $table->tinyText('city');
-            $table->tinyText('code');
+            $table->tinyText('code')
+                ->comment('Post code of apartment address');
             $table->tinyText('street');
             $table->tinyText('street_nr');
 
-            $table->unsignedDecimal('price');
+            $table->unsignedBigInteger('price');
         });
     }
 
