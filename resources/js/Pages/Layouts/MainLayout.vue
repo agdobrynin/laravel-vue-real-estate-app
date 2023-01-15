@@ -1,16 +1,34 @@
 <template>
-  <div>
-    <Link :href="route('apartment.index')">Show apartments</Link>
-    |
-    <Link :href="route('apartment.create')">Create apartment</Link>
-
-    <div v-if="flashSuccess" class="success">
+  <header class="border-b border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800 w-full">
+    <div class="container mx-auto">
+      <nav class="p-4 flex items-center justify-between">
+        <div class="text-lg font-medium">
+          <Link :href="route('apartment.index')">Show apartments</Link>
+        </div>
+        <div class="text-xl font-bold text-center text-indigo-600 dark:text-indigo-300">
+          <Link :href="route('apartment.index')">Larazilla</Link>
+        </div>
+        <div>
+          <Link
+            :href="route('apartment.create')"
+            class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium p-2 rounded-md"
+          >
+            ➕ Create
+            apartment
+          </Link>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main class="container mx-auto p-4">
+    <div
+      v-if="flashSuccess"
+      class="mb-4 border rounded-md p-4 shadow-md border-green-400 dark:border-green-800 bg-green-100 dark:bg-green-900 dark:border-green-500"
+    >
       {{ flashSuccess }}
     </div>
-    {{ }}
-    <hr />
     <slot />
-  </div>
+  </main>
 </template>
 
 <script setup>
@@ -21,12 +39,3 @@ const page = usePage()
 
 const flashSuccess = computed(() => page.props.value.flash.success)
 </script>
-
-<style scoped>
-.success {
-    color: white;
-    background-color: #178f17;
-    border: #085d08 solid;
-    padding: 0.5rem;
-}
-</style>
