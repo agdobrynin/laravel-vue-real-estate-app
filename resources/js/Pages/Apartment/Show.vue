@@ -8,7 +8,8 @@
     <div class="md:col-span-5 flex flex-col gap-4">
       <Box>
         <template #header>Basic info</template>
-        <Price :price="apartment.price" class="text-2xl font-bold" />
+        <Price :price="apartment.price" class="block mb-4 text-2xl font-bold">Price</Price>
+
         <ApartmentSpace :area="apartment.area" :baths="apartment.baths" :beds="apartment.beds" class="text-lg" />
         <ApartmentAddress
           :street="apartment.street"
@@ -20,8 +21,29 @@
         />
       </Box>
       <Box>
-        <template #header>Offer</template>
-        Make an offer
+        <template #header>Monthly payment</template>
+        <div>
+          <label class="label">Interest range ({{ interestRate }} %)</label>
+          <input
+            v-model.number="interestRate"
+            type="range" min="0.1" :max="maxInterestRate" step="0.1"
+            class="w-full appearance-none h-4 bg-gray-200 rounded-lg cursor-pointer dark:bg-gray-700"
+          />
+        </div>
+        <div>
+          <label class="label">Duration ( {{ duration }} years)</label>
+          <input
+            v-model.number="duration"
+            type="range" min="3" :max="maxDuration" step="1"
+            class="w-full appearance-none h-4 bg-gray-200 rounded-lg cursor-pointer dark:bg-gray-700"
+          />
+        </div>
+        <div class="text-gray-600 dark:text-gray-300 mt-2">
+          <div class="text-gray-400">Your monthly payment</div>
+          <Price :price="monthlyPayment" class="text-3xl" />
+          <Price :price="totalPaid" class="font-bold block mt-3 font-medium">Total paid:</Price>
+          <Price :price="totalInterest" class="font-bold block mt-3 font-medium">Total interested:</Price>
+        </div>
       </Box>
     </div>
     <Link :href="route('apartment.edit', {apartment: apartment.id})">Edit</Link>
@@ -34,6 +56,19 @@ import {Link} from '@inertiajs/inertia-vue3'
 import Price from '@/Components/Price.vue'
 import ApartmentSpace from '@/Components/ApartmentSpace.vue'
 import Box from '@/Components/UI/Box.vue'
+import {ref} from 'vue'
+import {
+    defaultDuration,
+    defaultInterestRate,
+    maxDuration,
+    maxInterestRate,
+    useMonthlyPayment,
+} from '@/Composables/useMonthlyPayment'
 
-defineProps({apartment: Object})
+const props = defineProps({apartment: Object})
+
+const interestRate = ref(defaultInterestRate)
+const duration = ref(defaultDuration)
+
+const {monthlyPayment, totalPaid, totalInterest} = useMonthlyPayment(props.apartment.price, interestRate, duration)
 </script>
