@@ -2,11 +2,10 @@
   <Box>
     <Link :href="route('apartment.show', {apartment: item.id})">
       <div class="flex items-center gap-2 mb-4">
-        <Price :price="item.price" class="text-3xl font-bold" />
-        <div class="text-gray-900 dark:text-gray-400 text-xs">
+        <Price :price="item.price" class="text-4xl font-bold" />
+        <div class="text-gray-900 dark:text-gray-400">
           <Price :price="monthlyPayment" class="block font-light">Per&nbsp;month</Price>
-          <Price :price="totalPaid" class="block font-light">Total price</Price>
-          <Price :price="totalInterest" class="block font-light">Total interest</Price>
+          <div class="font-light">Rate {{ defaultInterestRate }} %, Duration {{ defaultDuration }} years</div>
         </div>
       </div>
       <ApartmentSpace :area="item.area" :baths="item.baths" :beds="item.beds" class="text-lg" />
@@ -34,10 +33,10 @@ import ApartmentAddress from '@/Components/ApartmentAddress.vue'
 import Price from '@/Components/Price.vue'
 import {Link} from '@inertiajs/inertia-vue3'
 import Box from '@/Components/UI/Box.vue'
-import {useMonthlyPayment} from '@/Composables/useMonthlyPayment'
+import {defaultInterestRate, useMonthlyPayment, defaultDuration} from '@/Composables/useMonthlyPayment'
 
 const props = defineProps({item: {type: Object, required: true}})
 
-const {monthlyPayment, totalPaid, totalInterest} = useMonthlyPayment(props.item.price)
+const {monthlyPayment} = useMonthlyPayment(props.item.price)
 </script>
 
