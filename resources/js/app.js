@@ -8,6 +8,10 @@ import { router } from '@inertiajs/vue3'
 
 let timeout = null
 
+NProgress.configure({
+    showSpinner: false,
+})
+
 router.on('start', () => NProgress.start())
 router.on('finish', (event) => {
     clearTimeout(timeout)
