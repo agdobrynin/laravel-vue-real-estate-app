@@ -11,7 +11,7 @@
         <div>
           <Link
             :href="route('apartment.create')"
-            class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium p-2 rounded-md"
+            class="button-primary"
           >
             ➕ Create
             apartment
