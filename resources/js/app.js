@@ -3,6 +3,25 @@ import {createInertiaApp} from '@inertiajs/inertia-vue3'
 import MainLayout from '@/Pages/Layouts/MainLayout.vue'
 import {ZiggyVue} from 'ziggy'
 import '../css/app.css'
+import NProgress from 'nprogress'
+import { router } from '@inertiajs/vue3'
+
+let timeout = null
+
+router.on('start', () => NProgress.start())
+router.on('finish', (event) => {
+    clearTimeout(timeout)
+    if (!NProgress.isStarted()) {
+        return
+    } else if (event.detail.visit.completed) {
+        NProgress.done()
+    } else if (event.detail.visit.interrupted) {
+        NProgress.set(0)
+    } else if (event.detail.visit.cancelled) {
+        NProgress.done()
+        NProgress.remove()
+    }
+})
 
 createInertiaApp({
     resolve: async (name) => {

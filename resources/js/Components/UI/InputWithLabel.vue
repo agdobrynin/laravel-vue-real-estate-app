@@ -1,7 +1,7 @@
 <template>
   <label class="label">{{ label }}</label>
   <input :value="modelValue" type="text" class="input" @input="$emit('update:modelValue', $event.target.value)" />
-  <div v-if="error" class="error"> {{ error }}</div>
+  <div v-if="error" class="input-error"> {{ error }}</div>
 </template>
 
 <script setup>
