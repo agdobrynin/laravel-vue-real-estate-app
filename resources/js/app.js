@@ -5,6 +5,7 @@ import {ZiggyVue} from 'ziggy'
 import '../css/app.css'
 import NProgress from 'nprogress'
 import { router } from '@inertiajs/vue3'
+import {vMaska} from 'maska'
 
 let timeout = null
 
@@ -40,6 +41,7 @@ createInertiaApp({
         createApp({render: () => h(App, props)})
             .use(plugin)
             .use(ZiggyVue)
+            .directive('maska', vMaska)
             .mount(el)
     },
 })
