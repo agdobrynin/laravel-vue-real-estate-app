@@ -54,10 +54,10 @@ import InputWithLabel from '@/Components/UI/InputWithLabel.vue'
 import {reactive} from 'vue'
 
 const props = defineProps({
-    apartment: Object,
+    formApartment: Object,
     buttonTitle: String,
 })
-const form = reactive(props.apartment)
+const form = reactive(props.formApartment)
 const emit = defineEmits(['onSubmit'])
 
 const onSubmit = () => {

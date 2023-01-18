@@ -1,5 +1,5 @@
 <template>
-  <FormApartment button-title="Update" :apartment="form" @on-submit="onSubmit" />
+  <FormApartment button-title="Update" :form-apartment="form" @on-submit="onSubmit" />
 </template>
 
 <script setup>
