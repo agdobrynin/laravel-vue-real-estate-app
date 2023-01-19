@@ -18,7 +18,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
-Route::resource('apartment', Apartment::class);
+Route::resource('apartment', Apartment::class)
+    ->only(['create', 'store', 'edit', 'update', 'destroy'])
+    ->middleware('auth');
+
+Route::resource('apartment', Apartment::class)
+    ->except(['create', 'store', 'edit', 'update', 'destroy']);
+
+
 Route::get('login', [AuthController::class, 'create'])->name('login');
 Route::post('login', [AuthController::class, 'store'])->name('login.store');
 Route::delete('logout', [AuthController::class, 'destroy'])->name('logout');
