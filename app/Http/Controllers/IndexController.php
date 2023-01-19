@@ -3,10 +3,22 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Inertia\Response;
+use Inertia\ResponseFactory;
+
 class IndexController extends Controller
 {
-    public function index(): \Inertia\Response|\Inertia\ResponseFactory
+    public function index(): Response|ResponseFactory
     {
-        return inertia('Index/Index', ['message' => 'Hello 👋']);
+        $name = 'Stranger';
+
+        if ($user = Auth::user()) {
+            $name = $user->name;
+        }
+
+        $message = sprintf('Hello %s 👋', $name);
+
+        return inertia('Index/Index', compact('message'));
     }
 }

@@ -9,6 +9,9 @@
       </div>
       <div class="mt-8">
         <button type="submit" class="button-primary w-full">Login</button>
+        <div class="mt-4 text-center text-gray-400 dark:text-gray-600">
+          <Link :href="route('user-account.create')" class="underline underline-offset-4">Register a new user</Link>
+        </div>
       </div>
     </form>
   </div>
@@ -16,7 +19,7 @@
 
 <script setup>
 import InputWithLabel from '@/Components/UI/InputWithLabel.vue'
-import {useForm} from '@inertiajs/inertia-vue3'
+import {Link, useForm} from '@inertiajs/inertia-vue3'
 
 const form = useForm({
     email: null,

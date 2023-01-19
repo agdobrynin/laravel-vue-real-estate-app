@@ -21,7 +21,8 @@
             <Link :href="route('logout')" method="delete" as="button" class="underline underline-offset-4">Logout</Link>
           </div>
         </div>
-        <div v-else>
+        <div v-else class="flex items-center gap-4">
+          <Link :href="route('user-account.create')" class="underline underline-offset-4">Register</Link>
           <Link :href="route('login')" class="underline underline-offset-4">Login</Link>
         </div>
       </nav>
