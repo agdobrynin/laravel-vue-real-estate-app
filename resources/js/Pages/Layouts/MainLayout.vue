@@ -18,11 +18,11 @@
             apartment
           </Link>
           <div>
-            <Link :href="route('logout')" method="delete" as="button">Logout</Link>
+            <Link :href="route('logout')" method="delete" as="button" class="underline underline-offset-4">Logout</Link>
           </div>
         </div>
         <div v-else>
-          <Link :href="route('login')">Signin</Link>
+          <Link :href="route('login')" class="underline underline-offset-4">Login</Link>
         </div>
       </nav>
     </div>
