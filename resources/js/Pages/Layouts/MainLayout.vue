@@ -6,9 +6,10 @@
           <Link :href="route('apartment.index')">Show apartments</Link>
         </div>
         <div class="text-xl font-bold text-center text-indigo-600 dark:text-indigo-300">
-          <Link :href="route('apartment.index')">Larazilla</Link>
+          <Link :href="route('index')">Larazilla</Link>
         </div>
-        <div>
+        <div v-if="user" class="flex items-center gap-4">
+          <div class="text-sm text-gray-500">{{ user.name }}</div>
           <Link
             :href="route('apartment.create')"
             class="button-primary"
@@ -16,11 +17,17 @@
             ➕ Create
             apartment
           </Link>
+          <div>
+            <Link :href="route('logout')" method="delete" as="button">Logout</Link>
+          </div>
+        </div>
+        <div v-else>
+          <Link :href="route('login')">Signin</Link>
         </div>
       </nav>
     </div>
   </header>
-  <main class="container mx-auto p-4">
+  <main class="container mx-auto p-4 w-full">
     <div
       v-if="flashSuccess"
       class="mb-4 border rounded-md p-4 shadow-md border-green-400 dark:border-green-800 bg-green-100 dark:bg-green-900 dark:border-green-500"
@@ -38,4 +45,5 @@ import {computed} from 'vue'
 const page = usePage()
 
 const flashSuccess = computed(() => page.props.value.flash.success)
+const user = computed(() => page.props.value.user)
 </script>

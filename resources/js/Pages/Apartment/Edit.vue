@@ -1,5 +1,7 @@
 <template>
-  <FormApartment button-title="Update" :form-apartment="form" @on-submit="onSubmit" />
+  <div class="w-1/2 mx-auto">
+    <FormApartment button-title="Update" :form-apartment="form" @on-submit="onSubmit" />
+  </div>
 </template>
 
 <script setup>

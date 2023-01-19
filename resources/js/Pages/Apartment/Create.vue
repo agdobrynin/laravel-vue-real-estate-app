@@ -1,5 +1,7 @@
 <template>
-  <FormApartment button-title="Create" :form-apartment="form" @on-submit="create" />
+  <div class="w-1/2 mx-auto">
+    <FormApartment button-title="Create" :form-apartment="form" @on-submit="create" />
+  </div>
 </template>
 
 <script setup>

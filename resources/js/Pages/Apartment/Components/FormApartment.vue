@@ -43,7 +43,7 @@
         />
       </div>
       <div class="col-span-6">
-        <button type="submit" class="button-primary">{{ buttonTitle }}</button>
+        <button type="submit" class="button-primary w-full">{{ buttonTitle }}</button>
       </div>
     </div>
   </form>
