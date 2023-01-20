@@ -16,9 +16,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Apartment::factory(20)->create();
-        User::factory()->create([
+        $user = User::factory()->create([
             'email' => 'email@email.com'
+        ]);
+
+        Apartment::factory(20)->create([
+            'by_user_id' => $user->id
         ]);
     }
 }
