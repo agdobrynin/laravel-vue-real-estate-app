@@ -1,1 +1,1 @@
-export const randomString = () => (Math.random() + 1).toString(36).substring(2, 7)
+export const randomString = () => (Math.random() + 1).toString(36).substring(2)
