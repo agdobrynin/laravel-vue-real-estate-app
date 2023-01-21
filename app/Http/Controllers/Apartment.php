@@ -30,7 +30,7 @@ class Apartment extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        ApartmentModel::create(
+        $request->user()->apartments()->create(
             $request->validate([
                 'beds' => 'required|integer|min:0|max:20',
                 'baths' => 'required|integer|min:0|max:20',
