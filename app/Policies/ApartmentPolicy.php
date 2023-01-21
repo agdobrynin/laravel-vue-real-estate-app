@@ -5,10 +5,20 @@ namespace App\Policies;
 use App\Models\Apartment;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class ApartmentPolicy
 {
     use HandlesAuthorization;
+
+    public function before(?User $user, $ability): ?Response
+    {
+        if ($user?->is_admin) {
+            return Response::allow();
+        }
+
+        return null;
+    }
 
     /**
      * Determine whether the user can view any models.
@@ -16,9 +26,9 @@ class ApartmentPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(?User $user = null)
+    public function viewAny(?User $user = null): Response
     {
-        return true;
+        return Response::allow();
     }
 
     /**
@@ -28,9 +38,9 @@ class ApartmentPolicy
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(?User $user = null, Apartment $apartment)
+    public function view(?User $user = null, Apartment $apartment): Response
     {
-        return true;
+        return Response::allow();
     }
 
     /**
@@ -39,9 +49,9 @@ class ApartmentPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user): Response
     {
-        return true;
+        return Response::allow();
     }
 
     /**
@@ -51,9 +61,11 @@ class ApartmentPolicy
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Apartment $apartment)
+    public function update(User $user, Apartment $apartment): Response
     {
-        return $user->id === $apartment->owner()->getResults()->id;
+        return $user->id === $apartment->owner()->getResults()->id
+            ? Response::allow()
+            : Response::deny('Can\'t access to edit');
     }
 
     /**
@@ -63,9 +75,11 @@ class ApartmentPolicy
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Apartment $apartment)
+    public function delete(User $user, Apartment $apartment): Response
     {
-        return $user->id === $apartment->owner()->getResults()->id;
+        return $user->id === $apartment->owner()->getResults()->id
+            ? Response::allow()
+            : Response::deny('Access deny for this action');
     }
 
     /**
@@ -75,9 +89,11 @@ class ApartmentPolicy
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Apartment $apartment)
+    public function restore(User $user, Apartment $apartment): Response
     {
-        return $user->id === $apartment->owner()->getResults()->id;
+        return $user->id === $apartment->owner()->getResults()->id
+            ? Response::allow()
+            : Response::deny();
     }
 
     /**
@@ -87,7 +103,7 @@ class ApartmentPolicy
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Apartment $apartment)
+    public function forceDelete(User $user, Apartment $apartment): bool
     {
         return $user->id === $apartment->owner()->getResults()->id;
     }

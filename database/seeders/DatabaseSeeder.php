@@ -18,8 +18,14 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(3)
             ->create()
-            ->each(static function (User $user) {
+            ->each(static function (User $user, $index) {
                 Apartment::factory(rand(4, 12), ['by_user_id' => $user->id])->create();
+
+                if (0 === $index) {
+                    $user->email = 'email@email.com';
+                    $user->is_admin = true;
+                    $user->save();
+                }
             });
     }
 }
