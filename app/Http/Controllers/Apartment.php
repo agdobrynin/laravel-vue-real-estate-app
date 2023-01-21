@@ -18,7 +18,8 @@ class Apartment extends Controller
     public function index(): \Inertia\Response|\Inertia\ResponseFactory
     {
         return inertia('Apartment/Index', [
-            'list' => ApartmentModel::all()
+            'list' => ApartmentModel::orderByDesc('created_at')
+                ->paginate(6)
         ]);
     }
 
