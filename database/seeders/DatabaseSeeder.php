@@ -16,12 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::factory()->create([
-            'email' => 'email@email.com'
-        ]);
-
-        Apartment::factory(20)->create([
-            'by_user_id' => $user->id
-        ]);
+        User::factory(3)
+            ->create()
+            ->each(static function (User $user) {
+                Apartment::factory(rand(4, 12), ['by_user_id' => $user->id])->create();
+            });
     }
 }
