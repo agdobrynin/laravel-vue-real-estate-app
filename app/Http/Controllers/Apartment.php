@@ -19,7 +19,7 @@ class Apartment extends Controller
     {
         return inertia('Apartment/Index', [
             'list' => ApartmentModel::orderByDesc('created_at')
-                ->paginate(6)
+                ->paginate(12)
         ]);
     }
 
