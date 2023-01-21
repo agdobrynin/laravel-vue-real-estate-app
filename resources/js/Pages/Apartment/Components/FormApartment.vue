@@ -20,17 +20,17 @@
         />
       </div>
       <div class="col-span-2">
-        <InputWithLabel v-model.trim="form.city" label="City" :error="form.errors.city" />
+        <InputWithLabel v-model.trim="form.city" label="City" placeholder="Enter city name" :error="form.errors.city" />
       </div>
       <div class="col-span-2">
-        <InputWithLabel v-model.trim="form.street" label="Street" :error="form.errors.street" />
+        <InputWithLabel v-model.trim="form.street" label="Street" placeholder="Enter street name" :error="form.errors.street" />
       </div>
       <div class="col-span-2">
-        <InputWithLabel v-model.number="form.street_nr" label="Street number" :error="form.errors.street_nr" />
+        <InputWithLabel v-model.number="form.street_nr" label="Street number" placeholder="Enter street numnber" :error="form.errors.street_nr" />
       </div>
       <div class="col-span-2">
         <InputWithLabel
-          v-model.trim="form.code" label="Postal code" :error="form.errors.code"
+          v-model.trim="form.code" label="Postal code" placeholder="Enter postal code" :error="form.errors.code"
           :maska-options="{mask: '#####-####'}"
         />
       </div>
