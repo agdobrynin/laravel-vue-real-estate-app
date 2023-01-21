@@ -53,7 +53,7 @@ class ApartmentPolicy
      */
     public function update(User $user, Apartment $apartment)
     {
-        return true;
+        return $user->id === $apartment->owner()->getResults()->id;
     }
 
     /**
@@ -65,7 +65,7 @@ class ApartmentPolicy
      */
     public function delete(User $user, Apartment $apartment)
     {
-        return true;
+        return $user->id === $apartment->owner()->getResults()->id;
     }
 
     /**
@@ -77,7 +77,7 @@ class ApartmentPolicy
      */
     public function restore(User $user, Apartment $apartment)
     {
-        return true;
+        return $user->id === $apartment->owner()->getResults()->id;
     }
 
     /**
@@ -89,6 +89,6 @@ class ApartmentPolicy
      */
     public function forceDelete(User $user, Apartment $apartment)
     {
-        return true;
+        return $user->id === $apartment->owner()->getResults()->id;
     }
 }
