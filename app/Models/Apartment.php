@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,5 +23,38 @@ class Apartment extends Model
             \App\Models\User::class,
             'by_user_id'
         );
+    }
+
+    public function scopeSortByCreated(Builder $builder): Builder
+    {
+        return $builder->orderByDesc('created_at');
+    }
+
+    public function scopeFilters(Builder $builder, array $filters): Builder
+    {
+        return $builder->when(
+            $filters['priceMin'] ?? false,
+            fn($query, $value) => $query->where('price', '>=', (int)$value)
+        )
+            ->when(
+                $filters['priceMax'] ?? false,
+                fn($query, $value) => $query->where('price', '<=', (int)$value)
+            )
+            ->when(
+                $filters['areaMin'] ?? false,
+                fn($query, $value) => $query->where('area', '>=', (int)$value)
+            )
+            ->when(
+                $filters['areaMax'] ?? false,
+                fn($query, $value) => $query->where('area', '<=', (int)$value)
+            )
+            ->when(
+                $filters['beds'] ?? false,
+                fn($query, $value) => $query->where('beds', (int)$value < 4 ? '=' : '>=', (int)$value)
+            )
+            ->when(
+                $filters['baths'] ?? false,
+                fn($query, $value) => $query->where('baths', (int)$value < 4 ? '=' : '>=', (int)$value)
+            );
     }
 }

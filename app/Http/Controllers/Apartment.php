@@ -18,37 +18,14 @@ class Apartment extends Controller
     public function index(Request $request): \Inertia\Response|\Inertia\ResponseFactory
     {
         $filters = $request->only(['priceMin', 'priceMax', 'beds', 'baths', 'areaMin', 'areaMax']);
-        $query = ApartmentModel::orderByDesc('created_at')
-            ->when(
-                $filters['priceMin'] ?? false,
-                fn($query, $value) => $query->where('price', '>=', (int)$value)
-            )
-            ->when(
-                $filters['priceMax'] ?? false,
-                fn($query, $value) => $query->where('price', '<=', (int)$value)
-            )
-            ->when(
-                $filters['areaMin'] ?? false,
-                fn($query, $value) => $query->where('area', '>=', (int)$value)
-            )
-            ->when(
-                $filters['areaMax'] ?? false,
-                fn($query, $value) => $query->where('area', '<=', (int)$value)
-            )
-            ->when(
-                $filters['beds'] ?? false,
-                fn($query, $value) => $query->where('beds', (int)$value < 4 ? '=' : '>=', (int)$value)
-            )
-            ->when(
-                $filters['baths'] ?? false,
-                fn($query, $value) => $query->where('baths', (int)$value < 4 ? '=' : '>=', (int)$value)
-            );
+        $query = ApartmentModel::SortByCreated()
+            ->filters($filters)
+            ->paginate(8)
+            ->withQueryString();
 
         return inertia('Apartment/Index', [
             'filters' => $filters,
             'list' => $query
-                ->paginate(8)
-                ->withQueryString()
         ]);
     }
 
