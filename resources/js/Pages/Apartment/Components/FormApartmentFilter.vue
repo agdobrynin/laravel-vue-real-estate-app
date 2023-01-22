@@ -15,12 +15,12 @@
       </div>
       <div class="flex flex-nowrap items-center">
         <SelectWithLabel
-          v-model.number="filterData.baths"
-          placeholder="Baths" input-class="input-filter-l w-28" :options="bathOptions"
+          v-model.number="filterData.beds"
+          placeholder="Beds" input-class="input-filter-l w-28" :options="bedOptions"
         />
         <SelectWithLabel
-          v-model.number="filterData.beds"
-          placeholder="Beds" input-class="input-filter-r w-28" :options="bedOptions"
+          v-model.number="filterData.baths"
+          placeholder="Baths" input-class="input-filter-r w-28" :options="bathOptions"
         />
       </div>
       <div class="flex flex-nowrap items-center">
