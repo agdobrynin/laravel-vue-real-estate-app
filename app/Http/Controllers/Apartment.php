@@ -15,11 +15,13 @@ class Apartment extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): \Inertia\Response|\Inertia\ResponseFactory
+    public function index(Request $request): \Inertia\Response|\Inertia\ResponseFactory
     {
         return inertia('Apartment/Index', [
+            'filters' => $request->only(['priceMin', 'priceMax', 'beds', 'baths', 'areaMin', 'areaMax']),
             'list' => ApartmentModel::orderByDesc('created_at')
-                ->paginate(12)
+                ->paginate(8)
+                ->withQueryString()
         ]);
     }
 

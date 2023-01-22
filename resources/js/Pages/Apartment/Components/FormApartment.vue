@@ -38,7 +38,7 @@
         <InputWithLabel
           v-model.number="form.price"
           label="Price"
-          :maska-options="{mask: '9 99#', returnUnmasked: true, reversed:true, tokens: {'9': {pattern: '[0-9]', repeated: true, multiple: true}}}"
+          :maska-options="MASK_PRICE"
           :error="form.errors.price"
         />
       </div>
@@ -52,6 +52,7 @@
 <script setup>
 import InputWithLabel from '@/Components/UI/InputWithLabel.vue'
 import {reactive} from 'vue'
+import {MASK_PRICE} from '@/Utils/mask'
 
 const props = defineProps({
     formApartment: Object,
