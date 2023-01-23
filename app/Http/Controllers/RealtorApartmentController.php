@@ -27,12 +27,17 @@ class RealtorApartmentController extends Controller
             $filters = [...$filters, 'by' => 'price', 'order' => 'asc'];
         }
 
-        $list = Auth::user()->apartments()->filters($filters);
+        $list = Auth::user()
+            ->apartments()
+            ->filters($filters)
+            ->paginate(6)
+            ->withQueryString()
+        ;
 
         return inertia(
             'Realtor/Index',
             [
-                'list' => $list->get(),
+                'list' => $list,
                 'filters' => $filters,
             ]
         );
