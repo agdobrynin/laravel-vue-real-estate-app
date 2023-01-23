@@ -3,10 +3,10 @@
 </template>
 
 <script setup>
-import {computed} from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps({
-    price: {type: [Number, String], required: true},
+    price: { type: [Number, String], required: true },
 })
 
 const formattedPrice = computed(() => Number(props.price).toLocaleString('en-US', {

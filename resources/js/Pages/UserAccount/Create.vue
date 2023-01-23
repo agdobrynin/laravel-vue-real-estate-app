@@ -42,7 +42,7 @@
 
 <script setup>
 
-import {Link, useForm} from '@inertiajs/inertia-vue3'
+import { Link, useForm } from '@inertiajs/inertia-vue3'
 import InputWithLabel from '@/Components/UI/InputWithLabel.vue'
 
 const form = useForm({
@@ -51,5 +51,6 @@ const form = useForm({
     password: null,
     password_confirmation: null,
 })
+
 const doCreate = () => form.post(route('user-account.store'))
 </script>

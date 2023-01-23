@@ -45,8 +45,8 @@
 </template>
 
 <script setup>
-import {Link, usePage} from '@inertiajs/inertia-vue3'
-import {computed} from 'vue'
+import { Link, usePage } from '@inertiajs/inertia-vue3'
+import { computed } from 'vue'
 
 const page = usePage()
 

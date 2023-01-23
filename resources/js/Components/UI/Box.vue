@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import {useSlots} from 'vue'
+import { useSlots } from 'vue'
 
 const slot = useSlots()
 </script>

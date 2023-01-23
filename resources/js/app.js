@@ -1,11 +1,11 @@
-import {createApp, h} from 'vue'
-import {createInertiaApp} from '@inertiajs/inertia-vue3'
+import { createApp, h } from 'vue'
+import { createInertiaApp } from '@inertiajs/inertia-vue3'
 import MainLayout from '@/Pages/Layouts/MainLayout.vue'
-import {ZiggyVue} from 'ziggy'
+import { ZiggyVue } from 'ziggy'
 import '../css/app.css'
 import NProgress from 'nprogress'
 import { router } from '@inertiajs/vue3'
-import {vMaska} from 'maska'
+import { vMaska } from 'maska'
 
 let timeout = null
 
@@ -37,8 +37,8 @@ createInertiaApp({
 
         return page
     },
-    setup({el, App, props, plugin}) {
-        createApp({render: () => h(App, props)})
+    setup({ el, App, props, plugin }) {
+        createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
             .directive('maska', vMaska)

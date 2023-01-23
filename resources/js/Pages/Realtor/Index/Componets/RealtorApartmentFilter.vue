@@ -27,9 +27,9 @@
 </template>
 
 <script setup>
-import {computed, reactive, watch} from 'vue'
-import {Inertia} from '@inertiajs/inertia'
-import {debounce} from 'lodash'
+import { computed, reactive, watch } from 'vue'
+import { Inertia } from '@inertiajs/inertia'
+import { debounce } from 'lodash'
 import SelectWithLabel from '@/Components/UI/SelectWithLabel.vue'
 
 const SORT_DESC = 'desc'
@@ -46,25 +46,25 @@ const filters = reactive({
 })
 
 const sortableFields = [
-    {value: 'price', text: 'Price'},
-    {value: 'created_at', text: 'Created'},
+    { value: 'price', text: 'Price' },
+    { value: 'created_at', text: 'Created' },
 ]
 
 const sortableOptionsPrice = [
-    {value: SORT_ASC, text: 'Cheapest'},
-    {value: SORT_DESC, text: 'Most expensive'},
+    { value: SORT_ASC, text: 'Cheapest' },
+    { value: SORT_DESC, text: 'Most expensive' },
 ]
 
 const sortableOptionsCreatedAt = [
-    {value: SORT_DESC, text: 'From newest to old'},
-    {value: SORT_ASC, text: 'From oldest to new'},
+    { value: SORT_DESC, text: 'From newest to old' },
+    { value: SORT_ASC, text: 'From oldest to new' },
 ]
 
 const orderOptions = computed(() => filters.by === 'price' ? sortableOptionsPrice : sortableOptionsCreatedAt)
 const updateByFilter = () => Inertia.get(
     route('realtor.apartment.index'),
     filters,
-    {preserveScroll: true, preserveState: true},
+    { preserveScroll: true, preserveState: true },
 )
 
 watch(filters, debounce(updateByFilter, 1000))

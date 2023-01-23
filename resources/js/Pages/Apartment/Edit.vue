@@ -9,10 +9,10 @@
 </template>
 
 <script setup>
-import {useForm} from '@inertiajs/inertia-vue3'
+import { useForm } from '@inertiajs/inertia-vue3'
 import FormApartment from '@/Pages/Apartment/Components/FormApartment.vue'
 
-const props = defineProps({apartment: Object})
+const props = defineProps({ apartment: Object })
 
 const form = useForm({
     beds: props.apartment.beds,
@@ -25,5 +25,5 @@ const form = useForm({
     price: props.apartment.price,
 })
 
-const onSubmit = () => form.put(route('apartment.update', {apartment: props.apartment.id}))
+const onSubmit = () => form.put(route('apartment.update', { apartment: props.apartment.id }))
 </script>

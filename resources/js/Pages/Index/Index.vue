@@ -4,6 +4,6 @@
 
 <script setup>
 defineProps({
-    message: {type: String, default: 'I am default value'},
+    message: { type: String, default: 'I am default value' },
 })
 </script>

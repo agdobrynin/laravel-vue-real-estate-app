@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import {Link} from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/inertia-vue3'
 
-defineProps({links: {type: Array, required: true}})
+defineProps({ links: { type: Array, required: true } })
 </script>

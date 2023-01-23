@@ -75,11 +75,11 @@
 
 <script setup>
 import ApartmentAddress from '@/Components/ApartmentAddress.vue'
-import {Link} from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/inertia-vue3'
 import Price from '@/Components/Price.vue'
 import ApartmentSpace from '@/Components/ApartmentSpace.vue'
 import Box from '@/Components/UI/Box.vue'
-import {ref} from 'vue'
+import { ref } from 'vue'
 import {
     defaultDuration,
     defaultInterestRate,
@@ -88,10 +88,10 @@ import {
     useMonthlyPayment,
 } from '@/Composables/useMonthlyPayment'
 
-const props = defineProps({apartment: Object})
+const props = defineProps({ apartment: Object })
 
 const interestRate = ref(defaultInterestRate)
 const duration = ref(defaultDuration)
 
-const {monthlyPayment, totalPaid, totalInterest} = useMonthlyPayment(props.apartment.price, interestRate, duration)
+const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(props.apartment.price, interestRate, duration)
 </script>

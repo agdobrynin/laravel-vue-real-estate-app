@@ -50,7 +50,7 @@ import Box from '@/Components/UI/Box.vue'
 import Price from '@/Components/Price.vue'
 import ApartmentSpace from '@/Components/ApartmentSpace.vue'
 import ApartmentAddress from '@/Components/ApartmentAddress.vue'
-import {Link} from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/inertia-vue3'
 import RealtorApartmentFilter from '@/Pages/Realtor/Index/Componets/RealtorApartmentFilter.vue'
 import Pagination from '@/Components/UI/Pagination.vue'
 

@@ -1,10 +1,11 @@
-import {computed, isRef} from 'vue'
+import { computed, isRef } from 'vue'
 
 export const defaultInterestRate = 1.2
 export const defaultDuration = 30
 
 export const maxDuration = 30
 export const maxInterestRate = 8
+
 export const useMonthlyPayment = (price, interestRate = defaultInterestRate, duration = defaultDuration) => {
     const monthlyPayment = computed(() => {
         const principle = isRef(price) ? price.value : price
@@ -16,5 +17,5 @@ export const useMonthlyPayment = (price, interestRate = defaultInterestRate, dur
     const totalPaid = computed(() => (isRef(duration) ? duration.value : duration ) * 12 * monthlyPayment.value)
     const totalInterest = computed(() => totalPaid.value - (isRef(price) ? price.value : price))
 
-    return {monthlyPayment, totalPaid, totalInterest}
+    return { monthlyPayment, totalPaid, totalInterest }
 }
