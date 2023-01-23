@@ -23,7 +23,11 @@ class RealtorApartmentController extends Controller
             ...$request->only(['by', 'order'])
         ];
 
-        $list = Auth::user()->apartments()->sortByPriceCheapest()->filters($filters);
+        if (empty($filters['by'])) {
+            $filters = [...$filters, 'by' => 'price', 'order' => 'asc'];
+        }
+
+        $list = Auth::user()->apartments()->filters($filters);
 
         return inertia(
             'Realtor/Index',

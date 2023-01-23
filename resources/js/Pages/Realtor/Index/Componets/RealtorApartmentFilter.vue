@@ -51,8 +51,8 @@ const sortableFields = [
 ]
 
 const sortableOptionsPrice = [
-    {value: SORT_DESC, text: 'Cheapest'},
-    {value: SORT_ASC, text: 'Most expensive'},
+    {value: SORT_ASC, text: 'Cheapest'},
+    {value: SORT_DESC, text: 'Most expensive'},
 ]
 
 const sortableOptionsCreatedAt = [

@@ -34,11 +34,6 @@ class Apartment extends Model
         return $builder->orderByDesc('created_at');
     }
 
-    public function scopeSortByPriceCheapest(Builder $builder): Builder
-    {
-        return $builder->orderBy('price', 'desc');
-    }
-
     public function scopeFilters(Builder $builder, array $filters): Builder
     {
         return $builder->when(
@@ -71,7 +66,7 @@ class Apartment extends Model
             ->when(
                 $filters['by'] ?? false,
                 fn($query, $value) => \in_array($value, $this->sortable)
-                    ? $query->orderBy($value, $filters['order'] ?? 'desc')
+                    ? $query->orderBy($value, ($filters['order'] ?? 'desc'))
                     : $query
             )
             ;
