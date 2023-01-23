@@ -75,8 +75,8 @@
 
 <script setup>
 import InputWithLabel from '@/Components/UI/InputWithLabel.vue'
-import {reactive} from 'vue'
-import {MASK_PRICE} from '@/Utils/mask'
+import { reactive } from 'vue'
+import { MASK_PRICE } from '@/Utils/mask'
 
 const props = defineProps({
     formApartment: Object,
