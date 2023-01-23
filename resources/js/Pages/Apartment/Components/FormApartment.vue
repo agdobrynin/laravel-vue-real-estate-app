@@ -2,40 +2,64 @@
   <form @submit.prevent="onSubmit">
     <div class="grid grid-cols-6 gap-4">
       <div class="col-span-2">
-        <InputWithLabel
-          v-model.number="form.beds" label="Beds" :error="form.errors.beds"
+        <input-with-label
+          v-model.number="form.beds"
+          label="Beds"
+          :error="form.errors.beds"
           :maska-options="{mask: '##'}"
         />
       </div>
       <div class="col-span-2">
-        <InputWithLabel
-          v-model.number="form.baths" label="Baths" :error="form.errors.baths"
+        <input-with-label
+          v-model.number="form.baths"
+          label="Baths"
+          :error="form.errors.baths"
           :maska-options="{mask: '##'}"
         />
       </div>
       <div class="col-span-2">
-        <InputWithLabel
-          v-model.number="form.area" label="Area" :error="form.errors.area"
+        <input-with-label
+          v-model.number="form.area"
+          label="Area"
+          :error="form.errors.area"
           :maska-options="{mask: '###'}"
         />
       </div>
       <div class="col-span-2">
-        <InputWithLabel v-model.trim="form.city" label="City" placeholder="Enter city name" :error="form.errors.city" />
+        <input-with-label
+          v-model.trim="form.city"
+          label="City"
+          placeholder="Enter city name"
+          :error="form.errors.city"
+        />
       </div>
       <div class="col-span-2">
-        <InputWithLabel v-model.trim="form.street" label="Street" placeholder="Enter street name" :error="form.errors.street" />
+        <input-with-label
+          v-model.trim="form.street"
+          label="Street"
+          placeholder="Enter street name"
+          :error="form.errors.street"
+        />
       </div>
       <div class="col-span-2">
-        <InputWithLabel v-model.number="form.street_nr" label="Street number" placeholder="Enter street numnber" :error="form.errors.street_nr" />
+        <input-with-label
+          v-model.number="form.street_nr"
+          label="Street number"
+          placeholder="Enter street numnber"
+          :error="form.errors.street_nr"
+        />
       </div>
       <div class="col-span-2">
-        <InputWithLabel
-          v-model.trim="form.code" label="Postal code" placeholder="Enter postal code" :error="form.errors.code"
+        <input-with-label
+          v-model.trim="form.code"
+          label="Postal code"
+          placeholder="Enter postal code"
+          :error="form.errors.code"
           :maska-options="{mask: '#####-####'}"
         />
       </div>
       <div class="col-span-2">
-        <InputWithLabel
+        <input-with-label
           v-model.number="form.price"
           label="Price"
           :maska-options="MASK_PRICE"

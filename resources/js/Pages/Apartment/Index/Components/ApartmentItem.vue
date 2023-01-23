@@ -20,10 +20,6 @@
     </Link>
     <br />
     <Link :href="route('apartment.edit', {apartment: item.id})">Edit</Link>
-    |
-    <Link :href="route('apartment.destroy', {apartment: item.id})" method="DELETE" class="del-item" as="button">
-      Delete
-    </Link>
   </Box>
 </template>
 
@@ -33,7 +29,7 @@ import ApartmentAddress from '@/Components/ApartmentAddress.vue'
 import Price from '@/Components/Price.vue'
 import {Link} from '@inertiajs/inertia-vue3'
 import Box from '@/Components/UI/Box.vue'
-import {defaultInterestRate, useMonthlyPayment, defaultDuration} from '@/Composables/useMonthlyPayment'
+import {defaultDuration, defaultInterestRate, useMonthlyPayment} from '@/Composables/useMonthlyPayment'
 
 const props = defineProps({item: {type: Object, required: true}})
 

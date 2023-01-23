@@ -102,16 +102,4 @@ class Apartment extends Controller
             ->route('apartment.show', [$apartment])
             ->with('success', 'Apartment was updated');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ApartmentModel $apartment): \Illuminate\Http\RedirectResponse
-    {
-        $apartment->delete();
-
-        return redirect()
-            ->route('apartment.index')
-            ->with('success', 'Apartment was deleted');
-    }
 }

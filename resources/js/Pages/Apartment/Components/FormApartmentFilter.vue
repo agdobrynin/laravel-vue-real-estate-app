@@ -2,42 +2,50 @@
   <form @submit.prevent="filter">
     <div class="mb-8 mt-4 flex flex-wrap gap-8">
       <div class="flex flex-nowrap items-center">
-        <InputWithLabel
+        <input-with-label
           v-model.number="filterData.priceMin"
-          placeholder="Price from" input-class="input-filter-l w-28"
+          placeholder="Price from"
+          input-class="input-filter-l w-28"
           :maska-options="MASK_PRICE"
         />
-        <InputWithLabel
+        <input-with-label
           v-model.number="filterData.priceMax"
-          placeholder="Price to" input-class="input-filter-r w-28"
+          placeholder="Price to"
+          input-class="input-filter-r w-28"
           :maska-options="MASK_PRICE"
         />
       </div>
       <div class="flex flex-nowrap items-center">
-        <SelectWithLabel
+        <select-with-label
           v-model.number="filterData.beds"
-          placeholder="Beds" input-class="input-filter-l w-28" :options="bedOptions"
+          placeholder="Beds"
+          :options="bedOptions"
+          input-class="input-filter-l w-28"
         />
-        <SelectWithLabel
+        <select-with-label
           v-model.number="filterData.baths"
-          placeholder="Baths" input-class="input-filter-r w-28" :options="bathOptions"
+          placeholder="Baths"
+          :options="bathOptions"
+          input-class="input-filter-r w-28"
         />
       </div>
       <div class="flex flex-nowrap items-center">
-        <InputWithLabel
+        <input-with-label
           v-model.number="filterData.areaMin"
-          placeholder="Square from" input-class="input-filter-l w-28"
+          placeholder="Square from"
+          input-class="input-filter-l w-28"
           :maska-options="MASK_NUMBER"
         />
-        <InputWithLabel
+        <input-with-label
           v-model.number="filterData.areaMax"
-          placeholder="Square to" input-class="input-filter-r w-28"
+          placeholder="Square to"
+          input-class="input-filter-r w-28"
           :maska-options="MASK_NUMBER"
         />
       </div>
       <div class="flex gap-4">
-        <button type="submit" class="button-normal">Apply</button>
-        <button :disabled="!hasValues" type="reset" class="button-outline" @click="filterClear">Clear</button>
+        <button type="submit" class="button-normal text-xs font-medium">Apply</button>
+        <button :disabled="!hasValues" type="reset" class="button-outline text-xs font-medium" @click="filterClear">Clear</button>
       </div>
     </div>
   </form>
@@ -53,12 +61,14 @@ import {computed} from 'vue'
 const props = defineProps({filters: Object})
 
 const bathOptions = [
+    {value: '', text: 'Baths'},
     {value: 1, text: '1 bath'},
     {value: 2, text: '2 baths'},
     {value: 3, text: '3 baths'},
     {value: 4, text: '4 baths and more'},
 ]
 const bedOptions = [
+    {value: '', text: 'Beds'},
     {value: 1, text: '1 bed'},
     {value: 2, text: '2 beds'},
     {value: 3, text: '3 beds'},

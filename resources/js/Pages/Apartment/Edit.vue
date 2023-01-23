@@ -1,6 +1,10 @@
 <template>
   <div class="w-1/2 mx-auto">
-    <FormApartment button-title="Update" :form-apartment="form" @on-submit="onSubmit" />
+    <form-apartment
+      button-title="Update"
+      :form-apartment="form"
+      @on-submit="onSubmit"
+    />
   </div>
 </template>
 

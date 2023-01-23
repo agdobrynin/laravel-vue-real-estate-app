@@ -20,7 +20,7 @@
     }
 
     .button-outline {
-        @apply text-gray-500 hover:text-gray-900 border border-gray-300 rounded-md p-2 dark:border-gray-600 dark:text-gray-300 dark:hover:text-gray-100 disabled:text-gray-300 dark:disabled:text-gray-600;
+        @apply p-2 rounded-md border shadow-sm border-gray-300 dark:border-gray-600 hover:border-gray-400 hover:bg-gray-50 dark:hover:border-gray-500 dark:hover:bg-gray-800
     }
 
     .input-error {

@@ -21,11 +21,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::resource('apartment', Apartment::class)
-    ->only(['create', 'store', 'edit', 'update', 'destroy'])
+    ->only(['create', 'store', 'edit', 'update'])
     ->middleware('auth');
 
 Route::resource('apartment', Apartment::class)
-    ->except(['create', 'store', 'edit', 'update', 'destroy']);
+    ->except(['create', 'store', 'edit', 'update']);
 
 
 Route::get('login', [AuthController::class, 'create'])->name('login');
@@ -38,4 +38,8 @@ Route::resource('user-account', UserAccountController::class)
 Route::prefix('realtor')
     ->name('realtor.')
     ->middleware('auth')
-    ->group(fn() => Route::resource('apartment', RealtorApartmentController::class));
+    ->group(fn() => Route::resource(
+        'apartment',
+        RealtorApartmentController::class)
+        ->only(['index', 'destroy'])
+    );

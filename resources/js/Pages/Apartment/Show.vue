@@ -8,10 +8,20 @@
     <div class="md:col-span-5 flex flex-col gap-4">
       <Box>
         <template #header>Basic info</template>
-        <Price :price="apartment.price" class="block mb-4 text-2xl font-bold">Price</Price>
+        <price
+          :price="apartment.price"
+          class="block mb-4 text-2xl font-bold"
+        >
+          Price
+        </price>
 
-        <ApartmentSpace :area="apartment.area" :baths="apartment.baths" :beds="apartment.beds" class="text-lg" />
-        <ApartmentAddress
+        <apartment-space
+          :area="apartment.area"
+          :baths="apartment.baths"
+          :beds="apartment.beds"
+          class="text-lg"
+        />
+        <apartment-address
           :street="apartment.street"
           :street_nr="apartment.street_nr"
           :city="apartment.city"
@@ -40,9 +50,22 @@
         </div>
         <div class="text-gray-600 dark:text-gray-300 mt-2">
           <div class="text-gray-400">Your monthly payment</div>
-          <Price :price="monthlyPayment" class="text-3xl" />
-          <Price :price="totalPaid" class="font-bold block mt-3 font-medium">Total paid:</Price>
-          <Price :price="totalInterest" class="font-bold block mt-3 font-medium">Total interested:</Price>
+          <price
+            :price="monthlyPayment"
+            class="text-3xl"
+          />
+          <price
+            :price="totalPaid"
+            class="font-bold block mt-3 font-medium"
+          >
+            Total paid:
+          </price>
+          <price
+            :price="totalInterest"
+            class="font-bold block mt-3 font-medium"
+          >
+            Total interested:
+          </price>
         </div>
       </Box>
     </div>

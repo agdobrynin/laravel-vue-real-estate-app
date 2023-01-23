@@ -9,7 +9,12 @@
           <Link :href="route('index')">Larazilla</Link>
         </div>
         <div v-if="user" class="flex items-center gap-4">
-          <div class="text-sm text-gray-500">{{ user.name }}</div>
+          <Link
+            class="text-sm text-gray-500 underline underline-offset-4"
+            :href="route('realtor.apartment.index')"
+          >
+            {{ user.name }}
+          </Link>
           <Link
             :href="route('apartment.create')"
             class="button-primary"

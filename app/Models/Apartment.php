@@ -17,6 +17,10 @@ class Apartment extends Model
         'beds', 'baths', 'area', 'city', 'code', 'street', 'street_nr', 'price',
     ];
 
+    protected $sortable = [
+        'price', 'created_at'
+    ];
+
     public function owner(): BelongsTo
     {
         return $this->belongsTo(
@@ -28,6 +32,11 @@ class Apartment extends Model
     public function scopeSortByCreated(Builder $builder): Builder
     {
         return $builder->orderByDesc('created_at');
+    }
+
+    public function scopeSortByPriceCheapest(Builder $builder): Builder
+    {
+        return $builder->orderBy('price', 'desc');
     }
 
     public function scopeFilters(Builder $builder, array $filters): Builder
@@ -55,6 +64,16 @@ class Apartment extends Model
             ->when(
                 $filters['baths'] ?? false,
                 fn($query, $value) => $query->where('baths', (int)$value < 4 ? '=' : '>=', (int)$value)
-            );
+            )
+            ->when($filters['deleted'] ?? false,
+                fn($query, $value) => $query->withTrashed()
+            )
+            ->when(
+                $filters['by'] ?? false,
+                fn($query, $value) => \in_array($value, $this->sortable)
+                    ? $query->orderBy($value, $filters['order'] ?? 'desc')
+                    : $query
+            )
+            ;
     }
 }
