@@ -45,7 +45,12 @@
       </div>
       <div class="flex gap-4">
         <button type="submit" class="button-normal text-xs font-medium">Apply</button>
-        <button :disabled="!hasValues" type="reset" class="button-outline text-xs font-medium" @click="filterClear">Clear</button>
+        <button
+          :disabled="!hasValues" type="reset" class="button-outline text-xs font-medium"
+          @click="filterClear"
+        >
+          Clear
+        </button>
       </div>
     </div>
   </form>
@@ -54,25 +59,25 @@
 <script setup>
 import InputWithLabel from '@/Components/UI/InputWithLabel.vue'
 import SelectWithLabel from '@/Components/UI/SelectWithLabel.vue'
-import {useForm} from '@inertiajs/inertia-vue3'
-import {MASK_NUMBER, MASK_PRICE} from '@/Utils/mask'
-import {computed} from 'vue'
+import { useForm } from '@inertiajs/inertia-vue3'
+import { MASK_NUMBER, MASK_PRICE } from '@/Utils/mask'
+import { computed } from 'vue'
 
-const props = defineProps({filters: Object})
+const props = defineProps({ filters: Object })
 
 const bathOptions = [
-    {value: '', text: 'Baths'},
-    {value: 1, text: '1 bath'},
-    {value: 2, text: '2 baths'},
-    {value: 3, text: '3 baths'},
-    {value: 4, text: '4 baths and more'},
+    { value: '', text: 'Baths' },
+    { value: 1, text: '1 bath' },
+    { value: 2, text: '2 baths' },
+    { value: 3, text: '3 baths' },
+    { value: 4, text: '4 baths and more' },
 ]
 const bedOptions = [
-    {value: '', text: 'Beds'},
-    {value: 1, text: '1 bed'},
-    {value: 2, text: '2 beds'},
-    {value: 3, text: '3 beds'},
-    {value: 4, text: '4 beds and more'},
+    { value: '', text: 'Beds' },
+    { value: 1, text: '1 bed' },
+    { value: 2, text: '2 beds' },
+    { value: 3, text: '3 beds' },
+    { value: 4, text: '4 beds and more' },
 ]
 
 const filterData = useForm({
@@ -89,7 +94,7 @@ const hasValues = computed(() => {
 })
 
 const filter = () => {
-    filterData.get(route('apartment.index'), {preserveState: true, preserveScroll: true})
+    filterData.get(route('apartment.index'), { preserveState: true, preserveScroll: true })
 }
 const filterClear = () => {
     filterData.priceMin = null
