@@ -37,7 +37,7 @@
       </div>
       <div class="flex gap-4">
         <button type="submit" class="button-normal">Apply</button>
-        <button type="reset" class="button-outline" @click="filterClear">Clear</button>
+        <button :disabled="!hasValues" type="reset" class="button-outline" @click="filterClear">Clear</button>
       </div>
     </div>
   </form>
@@ -48,6 +48,7 @@ import InputWithLabel from '@/Components/UI/InputWithLabel.vue'
 import SelectWithLabel from '@/Components/UI/SelectWithLabel.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import {MASK_NUMBER, MASK_PRICE} from '@/Utils/mask'
+import {computed} from 'vue'
 
 const props = defineProps({filters: Object})
 
@@ -67,10 +68,14 @@ const bedOptions = [
 const filterData = useForm({
     priceMin: props.filters?.priceMin || null,
     priceMax: props.filters?.priceMax || null,
-    beds: props.filters?.beds || null,
-    baths: props.filters?.baths || null,
+    beds: props.filters?.beds || '',
+    baths: props.filters?.baths || '',
     areaMin: props.filters?.areaMin || null,
     areaMax: props.filters?.areaMax || null,
+})
+
+const hasValues = computed(() => {
+    return Boolean(Object.values(props.filters).filter((value) => value !== null).length)
 })
 
 const filter = () => {

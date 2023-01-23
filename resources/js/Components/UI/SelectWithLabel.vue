@@ -2,7 +2,7 @@
   <div>
     <label v-if="label" :for="id" class="label">{{ label }}</label>
     <select :id="id" v-model="initValue" class="input" :class="inputClass" @change="$emit('update:modelValue', $event.target.value)">
-      <option value="null">{{ placeholder }}</option>
+      <option :value="''">{{ placeholder }}</option>
       <option v-for="o in options" :key="o" :value="o.value">{{ o.text }}</option>
     </select>
     <div v-if="error" class="input-error"> {{ error }}</div>
