@@ -18,6 +18,7 @@
             :area="item.area"
             :baths="item.baths"
             :beds="item.beds"
+            :show-icons="false"
             class="mb-2"
           />
           <apartment-address
