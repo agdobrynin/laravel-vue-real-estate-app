@@ -8,7 +8,7 @@
           type="checkbox"
           class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
         />
-        <label for="realtor-apartment-filter">Deleted</label>
+        <label for="realtor-apartment-filter">With soft deleted apartment</label>
       </div>
       <div class="flex flex-nowrap items-center">
         <select-with-label

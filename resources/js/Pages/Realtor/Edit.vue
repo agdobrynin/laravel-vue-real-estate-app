@@ -25,5 +25,5 @@ const form = useForm({
     price: props.apartment.price,
 })
 
-const onSubmit = () => form.put(route('apartment.update', { apartment: props.apartment.id }))
+const onSubmit = () => form.put(route('realtor.apartment.update', { apartment: props.apartment.id }))
 </script>

@@ -7,9 +7,9 @@
     <pagination :links="list.links" />
   </div>
   <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <box v-for="item in list.data" :key="item.id">
+    <box v-for="item in list.data" :key="item.id" :class="{'border-2 border-red-600 dark:border-red-400': item.deleted_at}">
       <div class="flex flex-col md:flex-row gap-2 md:items-center justify-between">
-        <div>
+        <div :class="{'opacity-40 dark:opacity-30': item.deleted_at}">
           <price
             :price="item.price"
             class="text-2xl mb-2 block"
@@ -28,13 +28,33 @@
           />
         </div>
         <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
-          <Link class="button-outline text-xs font-medium">Preview</Link>
-          <Link class="button-outline text-xs font-medium">Edit</Link>
+          <a
+            v-show="!item.deleted_at"
+            :href="route('apartment.show', {apartment: item.id})"
+            target="_blank"
+            class="button-outline text-xs font-medium"
+          >Preview</a>
           <Link
-            class="button-outline text-xs font-medium" as="button" method="delete"
+            :href="route('realtor.apartment.edit', {apartment: item.id})"
+            class="button-outline text-xs font-medium"
+          >
+            Edit
+          </Link>
+          <Link
+            v-if="!item.deleted_at"
             :href="route('realtor.apartment.destroy', {apartment: item.id})"
+            as="button" method="delete"
+            class="button-outline text-xs font-medium"
           >
             Delete
+          </Link>
+          <Link
+            v-else
+            :href="route('realtor.apartment.restore', {apartment: item.id})"
+            as="button" method="put"
+            class="button-outline text-xs font-medium"
+          >
+            Restore
           </Link>
         </div>
       </div>

@@ -16,7 +16,7 @@
             {{ user.name }}
           </Link>
           <Link
-            :href="route('apartment.create')"
+            :href="route('realtor.apartment.create')"
             class="button-primary"
           >
             ➕ Create

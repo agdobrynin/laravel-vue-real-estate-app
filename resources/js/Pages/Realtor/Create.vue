@@ -23,5 +23,5 @@ const form = useForm({
     price: 0,
 })
 
-const create = () => form.post(route('apartment.store'))
+const create = () => form.post(route('realtor.apartment.store'))
 </script>

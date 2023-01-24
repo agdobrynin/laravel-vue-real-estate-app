@@ -21,12 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::resource('apartment', Apartment::class)
-    ->only(['create', 'store', 'edit', 'update'])
-    ->middleware('auth');
-
-Route::resource('apartment', Apartment::class)
-    ->except(['create', 'store', 'edit', 'update']);
-
+    ->only(['index', 'show']);
 
 Route::get('login', [AuthController::class, 'create'])->name('login');
 Route::post('login', [AuthController::class, 'store'])->name('login.store');
@@ -38,8 +33,15 @@ Route::resource('user-account', UserAccountController::class)
 Route::prefix('realtor')
     ->name('realtor.')
     ->middleware('auth')
-    ->group(fn() => Route::resource(
-        'apartment',
-        RealtorApartmentController::class)
-        ->only(['index', 'destroy'])
-    );
+    ->group(function () {
+        Route::name('apartment.restore')
+            ->put('apartment/{apartment}/restore', [RealtorApartmentController::class, 'restore'])
+            ->withTrashed()
+        ;
+
+        Route::resource(
+            'apartment',
+            RealtorApartmentController::class)
+            ->only(['index', 'destroy', 'create', 'store', 'edit', 'update'])
+            ->withTrashed();
+    });

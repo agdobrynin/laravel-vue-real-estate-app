@@ -69,13 +69,11 @@
         </div>
       </Box>
     </div>
-    <Link :href="route('apartment.edit', {apartment: apartment.id})">Edit</Link>
   </div>
 </template>
 
 <script setup>
 import ApartmentAddress from '@/Components/ApartmentAddress.vue'
-import { Link } from '@inertiajs/inertia-vue3'
 import Price from '@/Components/Price.vue'
 import ApartmentSpace from '@/Components/ApartmentSpace.vue'
 import Box from '@/Components/UI/Box.vue'

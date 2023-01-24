@@ -21,8 +21,6 @@
         class="text-gray-500"
       />
     </Link>
-    <br />
-    <Link :href="route('apartment.edit', {apartment: item.id})">Edit</Link>
   </Box>
 </template>
 
