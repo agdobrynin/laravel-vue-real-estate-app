@@ -46,7 +46,7 @@
       <div class="flex gap-4">
         <button type="submit" class="button-normal text-xs font-medium">Apply</button>
         <button
-          :disabled="!hasValues" type="reset" class="button-outline text-xs font-medium"
+          v-show="hasValues" type="reset" class="button-outline text-xs font-medium"
           @click="filterClear"
         >
           Clear

@@ -48,7 +48,7 @@ class RealtorApartmentController extends Controller
         $apartment->deleteOrFail();
 
         return redirect()
-            ->route('realtor.apartment.index')
+            ->back()
             ->with('success', 'Apartment was deleted');
     }
 
