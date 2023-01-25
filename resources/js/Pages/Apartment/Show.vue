@@ -1,7 +1,24 @@
 <template>
   <div class="flex flex-col-reverse md:grid md:grid-cols-12 gap-4">
-    <Box class="md:col-span-7 flex items-center w-full">
-      <div class="w-full text-center font-medium text-gray-500">
+    <Box class="md:col-span-7 flex w-full">
+      <div v-if="apartment.images.length">
+        <section class="overflow-hidden text-gray-700">
+          <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
+            <div class="flex flex-wrap -m-1 md:-m-2">
+              <div v-for="image in apartment.images" :key="image.id" class="flex flex-wrap md:w-1/2 lg:w-1/3">
+                <div class="w-full p-1 md:p-2">
+                  <img
+                    :alt="image.filename"
+                    :src="image.src"
+                    class="block object-cover object-center w-full h-full rounded-lg"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div v-else class="w-full text-center font-medium text-gray-500">
         No images
       </div>
     </Box>

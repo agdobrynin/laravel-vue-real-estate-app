@@ -28,36 +28,49 @@
             :code="item.code"
           />
         </div>
-        <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
-          <a
-            v-show="!item.deleted_at"
-            :href="route('apartment.show', {apartment: item.id})"
-            target="_blank"
-            class="button-outline text-xs font-medium"
-          >Preview</a>
-          <Link
-            :href="route('realtor.apartment.edit', {apartment: item.id})"
-            class="button-outline text-xs font-medium"
-          >
-            Edit
-          </Link>
-          <Link
-            v-if="!item.deleted_at"
-            :href="route('realtor.apartment.destroy', {apartment: item.id})"
-            as="button" method="delete"
-            class="button-outline text-xs font-medium"
-          >
-            Delete
-          </Link>
-          <Link
-            v-else
-            :href="route('realtor.apartment.restore', {apartment: item.id})"
-            as="button" method="put"
-            class="button-outline text-xs font-medium"
-          >
-            Restore
-          </Link>
-        </div>
+        <section>
+          <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
+            <a
+              v-show="!item.deleted_at"
+              :href="route('apartment.show', {apartment: item.id})"
+              target="_blank"
+              class="button-outline text-xs font-medium"
+            >Preview</a>
+            <Link
+              :href="route('realtor.apartment.edit', {apartment: item.id})"
+              class="button-outline text-xs font-medium"
+            >
+              Edit
+            </Link>
+            <Link
+              v-if="!item.deleted_at"
+              :href="route('realtor.apartment.destroy', {apartment: item.id})"
+              as="button" method="delete"
+              class="button-outline text-xs font-medium"
+            >
+              Delete
+            </Link>
+            <Link
+              v-else
+              :href="route('realtor.apartment.restore', {apartment: item.id})"
+              as="button" method="put"
+              class="button-outline text-xs font-medium"
+            >
+              Restore
+            </Link>
+          </div>
+          <div class="mt-4">
+            <Link
+              :href="route('realtor.apartment.image.create', { apartment: item.id })"
+              class="block w-full button-outline text-xs font-medium text-center relative"
+            >
+              <span class="absolute w-1 h-1 top-1 rounded-full flex justify-center items-center text-center p-3 bg-gray-200 dark:bg-gray-700 font-light">
+                {{ item.images_count }}
+              </span>
+              Upload images
+            </Link>
+          </div>
+        </section>
       </div>
     </box>
   </section>

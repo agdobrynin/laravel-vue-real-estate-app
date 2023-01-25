@@ -30,6 +30,7 @@ class RealtorApartmentController extends Controller
         $list = Auth::user()
             ->apartments()
             ->filters($filters)
+            ->withCount('images')
             ->paginate(6)
             ->withQueryString()
         ;

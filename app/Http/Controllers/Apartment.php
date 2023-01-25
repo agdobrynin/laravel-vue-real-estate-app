@@ -31,6 +31,8 @@ class Apartment extends Controller
      */
     public function show(ApartmentModel $apartment): Response|ResponseFactory
     {
+        $apartment->load(['images']);
+
         return inertia('Apartment/Show', [
             'apartment' => $apartment
         ]);

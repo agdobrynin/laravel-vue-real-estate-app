@@ -4,6 +4,7 @@ use App\Http\Controllers\Apartment;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\RealtorApartmentController;
+use App\Http\Controllers\RealtorApartmentImageController;
 use App\Http\Controllers\UserAccountController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,4 +45,7 @@ Route::prefix('realtor')
             RealtorApartmentController::class)
             ->only(['index', 'destroy', 'create', 'store', 'edit', 'update'])
             ->withTrashed();
+
+        Route::resource('apartment.image', RealtorApartmentImageController::class)
+            ->only(['create', 'store', 'destroy']);
     });

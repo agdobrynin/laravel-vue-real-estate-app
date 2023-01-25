@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Apartment extends Model
@@ -27,6 +28,11 @@ class Apartment extends Model
             \App\Models\User::class,
             'by_user_id'
         );
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(ApartmentImage::class);
     }
 
     public function scopeSortByCreated(Builder $builder): Builder
