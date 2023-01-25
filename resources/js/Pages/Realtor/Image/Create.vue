@@ -1,7 +1,8 @@
 <template>
+  <menu-realtor />
   <box>
     <template #header>Upload new images</template>
-    <form @submit.prevent="upload">
+    <form @submit.prevent="uploadForm">
       <section class="flex items-center gap-4 my-4">
         <input
           type="file"
@@ -19,7 +20,7 @@
         <button
           type="reset"
           class="button-outline disabled:opacity-50 disabled:cursor-not-allowed"
-          @click="reset"
+          @click="resetForm"
         >
           Clear
         </button>
@@ -70,6 +71,7 @@ import { Link, useForm } from '@inertiajs/inertia-vue3'
 import { computed } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import NProgress from 'nprogress'
+import MenuRealtor from '@/Pages/Realtor/Components/MenuRealtor.vue'
 
 const props = defineProps({
     apartment: Object,
@@ -83,7 +85,10 @@ const formErrors = computed(() => Object.values(form.errors))
 
 const canUpload = computed(() => form.images.length)
 
-const reset = () => form.reset('images')
+const resetForm = () => {
+    form.reset('images')
+    form.errors = {}
+}
 
 Inertia.on('progress', (eventProgress) => {
     if (eventProgress.detail.progress.percentage) {
@@ -91,7 +96,8 @@ Inertia.on('progress', (eventProgress) => {
     }
 })
 
-const upload = () => {
+const uploadForm = () => {
+    form.errors = {}
     form.post(
         route('realtor.apartment.image.store', { apartment: props.apartment.id }),
         {

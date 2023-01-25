@@ -21,7 +21,7 @@ class RealtorApartmentImageController extends Controller
 
     public function store(ApartmentModel $apartment, Request $request): RedirectResponse
     {
-        if ($request->hasFile('images')) {
+        if ($request->file('images')) {
             $request->validate(
                 [
                     'images.*' => 'required|mimes:jpg,png,jpeg|max:500'
@@ -38,9 +38,11 @@ class RealtorApartmentImageController extends Controller
 
                 $apartment->images()->save($apartmentImage);
             }
+
+            return redirect()->back()->with('success', 'Images was uploaded');
         }
 
-        return redirect()->back()->with('success', 'Images was uploaded');
+        abort(404, 'Upload files not found');
     }
 
     public function destroy(int $apartment, ApartmentImage $image): RedirectResponse
