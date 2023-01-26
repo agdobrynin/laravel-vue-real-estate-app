@@ -28,7 +28,7 @@
 
 <script setup>
 import { computed, reactive, watch } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/vue3'
 import { debounce } from 'lodash'
 import SelectWithLabel from '@/Components/UI/SelectWithLabel.vue'
 
@@ -61,7 +61,7 @@ const sortableOptionsCreatedAt = [
 ]
 
 const orderOptions = computed(() => filters.by === 'price' ? sortableOptionsPrice : sortableOptionsCreatedAt)
-const updateByFilter = () => Inertia.get(
+const updateByFilter = () => router.get(
     route('realtor.apartment.index'),
     filters,
     { preserveScroll: true, preserveState: true },

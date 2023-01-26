@@ -67,9 +67,9 @@
 
 <script setup>
 import Box from '@/Components/UI/Box.vue'
-import { Link, useForm } from '@inertiajs/inertia-vue3'
+import { Link, useForm } from '@inertiajs/vue3'
 import { computed } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/vue3'
 import NProgress from 'nprogress'
 import MenuRealtor from '@/Pages/Realtor/Components/MenuRealtor.vue'
 
@@ -90,7 +90,7 @@ const resetForm = () => {
     form.errors = {}
 }
 
-Inertia.on('progress', (eventProgress) => {
+router.on('progress', (eventProgress) => {
     if (eventProgress.detail.progress.percentage) {
         NProgress.set((eventProgress.detail.progress.percentage / 100) * 0.9)
     }

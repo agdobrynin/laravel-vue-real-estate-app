@@ -28,7 +28,7 @@
 
 <script setup>
 import InputWithLabel from '@/Components/UI/InputWithLabel.vue'
-import { Link, useForm } from '@inertiajs/inertia-vue3'
+import { Link, useForm } from '@inertiajs/vue3'
 
 const form = useForm({
     email: null,

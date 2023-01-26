@@ -28,7 +28,7 @@
 import ApartmentSpace from '@/Components/ApartmentSpace.vue'
 import ApartmentAddress from '@/Components/ApartmentAddress.vue'
 import Price from '@/Components/Price.vue'
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/vue3'
 import Box from '@/Components/UI/Box.vue'
 import { defaultDuration, defaultInterestRate, useMonthlyPayment } from '@/Composables/useMonthlyPayment'
 

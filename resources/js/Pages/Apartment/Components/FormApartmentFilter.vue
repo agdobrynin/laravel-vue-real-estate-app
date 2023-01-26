@@ -59,7 +59,7 @@
 <script setup>
 import InputWithLabel from '@/Components/UI/InputWithLabel.vue'
 import SelectWithLabel from '@/Components/UI/SelectWithLabel.vue'
-import { useForm } from '@inertiajs/inertia-vue3'
+import { useForm } from '@inertiajs/vue3'
 import { MASK_NUMBER, MASK_PRICE } from '@/Utils/mask'
 import { computed } from 'vue'
 

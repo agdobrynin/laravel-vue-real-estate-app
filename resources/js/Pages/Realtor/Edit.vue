@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { useForm } from '@inertiajs/inertia-vue3'
+import { useForm } from '@inertiajs/vue3'
 import FormApartment from '@/Pages/Apartment/Components/FormApartment.vue'
 
 const props = defineProps({ apartment: Object })

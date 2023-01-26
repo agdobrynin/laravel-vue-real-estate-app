@@ -42,7 +42,7 @@
 
 <script setup>
 
-import { Link, useForm } from '@inertiajs/inertia-vue3'
+import { Link, useForm } from '@inertiajs/vue3'
 import InputWithLabel from '@/Components/UI/InputWithLabel.vue'
 
 const form = useForm({
