@@ -48,16 +48,18 @@ class User extends Authenticatable
     protected function password(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value,
-            set: fn ($value) => Hash::make($value),
+            get: fn($value) => $value,
+            set: fn($value) => Hash::make($value),
         );
     }
 
     public function apartments(): HasMany
     {
-        return $this->hasMany(
-            \App\Models\Apartment::class,
-            'by_user_id'
-        );
+        return $this->hasMany(Apartment::class, 'by_user_id');
+    }
+
+    public function offers(): HasMany
+    {
+        return $this->hasMany(Offer::class, 'offer_by_user_id');
     }
 }

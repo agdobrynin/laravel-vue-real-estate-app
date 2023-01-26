@@ -35,6 +35,11 @@ class Apartment extends Model
         return $this->hasMany(ApartmentImage::class);
     }
 
+    public function offers(): HasMany
+    {
+        return $this->hasMany(Offer::class, 'apartment_id');
+    }
+
     public function scopeSortByCreated(Builder $builder): Builder
     {
         return $builder->orderByDesc('created_at');
