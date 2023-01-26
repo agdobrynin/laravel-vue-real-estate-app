@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Apartment as ApartmentModel;
+use App\Models\Apartment;
 use App\Models\ApartmentImage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,14 +12,14 @@ use Inertia\ResponseFactory;
 
 class RealtorApartmentImageController extends Controller
 {
-    public function create(ApartmentModel $apartment): Response|ResponseFactory
+    public function create(Apartment $apartment): Response|ResponseFactory
     {
         $apartment->load(['images']);
 
         return inertia('Realtor/Image/Create', ['apartment' => $apartment]);
     }
 
-    public function store(ApartmentModel $apartment, Request $request): RedirectResponse
+    public function store(Apartment $apartment, Request $request): RedirectResponse
     {
         if ($request->file('images')) {
             $request->validate(

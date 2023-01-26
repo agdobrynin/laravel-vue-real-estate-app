@@ -67,7 +67,7 @@
               <span class="absolute w-1 h-1 top-1 rounded-full flex justify-center items-center text-center p-3 bg-gray-200 dark:bg-gray-700 font-light">
                 {{ item.images_count }}
               </span>
-              Upload images
+              <div class="ml-5">Upload images</div>
             </Link>
           </div>
         </section>

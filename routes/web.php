@@ -47,5 +47,6 @@ Route::prefix('realtor')
             ->withTrashed();
 
         Route::resource('apartment.image', RealtorApartmentImageController::class)
-            ->only(['create', 'store', 'destroy']);
+            ->only(['create', 'store', 'destroy'])
+            ->withTrashed(['create', 'store', 'destroy']);
     });
