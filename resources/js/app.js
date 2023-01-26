@@ -7,7 +7,7 @@ import { vMaska } from 'maska'
 
 createInertiaApp({
     resolve: async (name) => {
-        const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
+        const pages = await import.meta.glob('./Pages/**/*.vue', { eager: true })
         let page = pages[`./Pages/${name}.vue`]
         page.default.layout = page.default.layout || MainLayout
 
