@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Apartment as ApartmentModel;
+use App\Models\Apartment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ class RealtorApartmentController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(ApartmentModel::class);
+        $this->authorizeResource(Apartment::class);
     }
 
     public function index(Request $request): Response|ResponseFactory
@@ -31,6 +31,7 @@ class RealtorApartmentController extends Controller
             ->apartments()
             ->filters($filters)
             ->withCount('images')
+            ->withCount('offers')
             ->paginate(6)
             ->withQueryString()
         ;
@@ -44,7 +45,14 @@ class RealtorApartmentController extends Controller
         );
     }
 
-    public function destroy(ApartmentModel $apartment): RedirectResponse
+    public function show(Apartment $apartment): Response|ResponseFactory
+    {
+        $apartment = $apartment->load('offers', 'offers.offeredByUser');
+
+        return inertia('Realtor/Show', ['apartment' => $apartment]);
+    }
+
+    public function destroy(Apartment $apartment): RedirectResponse
     {
         $apartment->deleteOrFail();
 
@@ -87,7 +95,7 @@ class RealtorApartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ApartmentModel $apartment): Response|ResponseFactory
+    public function edit(Apartment $apartment): Response|ResponseFactory
     {
         return inertia('Realtor/Edit', [
             'apartment' => $apartment
@@ -97,7 +105,7 @@ class RealtorApartmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ApartmentModel $apartment): RedirectResponse
+    public function update(Request $request, Apartment $apartment): RedirectResponse
     {
         $apartment->update(
             $request->validate([
@@ -117,7 +125,7 @@ class RealtorApartmentController extends Controller
             ->with('success', 'Apartment was updated');
     }
 
-    public function restore(ApartmentModel $apartment): RedirectResponse
+    public function restore(Apartment $apartment): RedirectResponse
     {
         $apartment->restore();
 

@@ -4,8 +4,11 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use App\Models\Apartment;
+use App\Models\User;
 use App\Policies\ApartmentPolicy;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+//        Gate::define('can-make-offer', function (User $user, Apartment $apartment) {
+//            return $apartment->sold_at === null;
+//        });
     }
 }

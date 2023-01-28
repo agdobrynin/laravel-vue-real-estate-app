@@ -2,21 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Apartment as ApartmentModel;
+use App\Models\Apartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
-class Apartment extends Controller
+class ApartmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Apartment::class);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request): Response|ResponseFactory
     {
         $filters = $request->only(['priceMin', 'priceMax', 'beds', 'baths', 'areaMin', 'areaMax']);
-        $query = ApartmentModel::SortByCreated()
+        $query = Apartment::SortByCreated()
             ->filters($filters)
+            ->withoutSold()
             ->paginate(8)
             ->withQueryString();
 
@@ -29,12 +35,16 @@ class Apartment extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ApartmentModel $apartment): Response|ResponseFactory
+    public function show(Apartment $apartment): Response|ResponseFactory
     {
         $apartment->load(['images']);
+        $offerMade = Auth::user()
+            ? $apartment->offers()->offerByUser(Auth::user())->first()
+            : null;
 
         return inertia('Apartment/Show', [
-            'apartment' => $apartment
+            'apartment' => $apartment,
+            'offerMade' => $offerMade
         ]);
     }
 }

@@ -7,9 +7,15 @@
     <pagination :links="list.links" />
   </div>
   <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <box v-for="item in list.data" :key="item.id" :class="{'border-2 border-red-600 dark:border-red-400': item.deleted_at}">
+    <box v-for="item in list.data" :key="item.id" :class="setBorder(item)">
       <div class="flex flex-col md:flex-row gap-2 md:items-center justify-between">
-        <div :class="{'opacity-40 dark:opacity-30': item.deleted_at}">
+        <div :class="setBorderOpacity(item)">
+          <div
+            v-if="item.sold_at"
+            class="text-green-600 dark:text-green-200 text-center border border-green-700 border-dashed px-1 py-1 rounded-xl uppercase"
+          >
+            sold
+          </div>
           <price
             :price="item.price"
             class="text-2xl mb-2 block"
@@ -59,16 +65,17 @@
               Restore
             </Link>
           </div>
-          <div class="mt-4">
-            <Link
+          <div class="mt-2 flex flex-col gap-2">
+            <link-with-count
+              title="Upload images"
+              :count-value="item.images_count"
               :href="route('realtor.apartment.image.create', { apartment: item.id })"
-              class="block w-full button-outline text-xs font-medium text-center relative"
-            >
-              <span class="absolute w-1 h-1 top-1 rounded-full flex justify-center items-center text-center p-3 bg-gray-200 dark:bg-gray-700 font-light">
-                {{ item.images_count }}
-              </span>
-              <div class="ml-5">Upload images</div>
-            </Link>
+            />
+            <link-with-count
+              title="Offers"
+              :count-value="item.offers_count"
+              :href="route('realtor.apartment.show', { apartment: item.id })"
+            />
           </div>
         </section>
       </div>
@@ -87,6 +94,24 @@ import ApartmentAddress from '@/Components/ApartmentAddress.vue'
 import { Link } from '@inertiajs/vue3'
 import RealtorApartmentFilter from '@/Pages/Realtor/Index/Componets/RealtorApartmentFilter.vue'
 import Pagination from '@/Components/UI/Pagination.vue'
+import LinkWithCount from '@/Components/UI/LinkWithCount.vue'
 
 defineProps({ list: Object, filters: Object })
+
+const setBorderOpacity = (apartment) => apartment.deleted_at ? 'opacity-40 dark:opacity-30' : ''
+const setBorder = (apartment) => {
+    if (apartment.deleted_at) {
+        return 'border-2 border-red-600 dark:border-red-400'
+    }
+
+    if (apartment.sold_at) {
+        return 'border-2 border-green-600 dark:border-green-400'
+    }
+
+    if (apartment.offers_count) {
+        return 'border-2 border-orange-300 dark:border-orange-400'
+    }
+
+    return ''
+}
 </script>

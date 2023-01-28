@@ -13,7 +13,7 @@ class ApartmentPolicy
 
     public function before(?User $user, $ability): ?Response
     {
-        if ($user?->is_admin) {
+        if ($user?->is_admin && !\in_array($ability, ['update', 'view'])) {
             return Response::allow();
         }
 
@@ -23,7 +23,7 @@ class ApartmentPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAny(?User $user = null): Response
@@ -34,19 +34,29 @@ class ApartmentPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Apartment  $apartment
+     * @param \App\Models\User $user
+     * @param \App\Models\Apartment $apartment
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(?User $user = null, Apartment $apartment): Response
     {
+        $ownerId = $apartment->owner()->first()->id;
+
+        if ($user?->id && $ownerId === $user->id) {
+            return Response::allow();
+        }
+
+        if ($soldAt = $apartment->sold_at) {
+            return Response::deny($this->apartmentSoldMessage($soldAt));
+        }
+
         return Response::allow();
     }
 
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user): Response
@@ -57,8 +67,8 @@ class ApartmentPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Apartment  $apartment
+     * @param \App\Models\User $user
+     * @param \App\Models\Apartment $apartment
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(User $user, Apartment $apartment): Response
@@ -68,11 +78,20 @@ class ApartmentPolicy
             : Response::deny('Can\'t access to edit');
     }
 
+    public function makeOffer(User $user, Apartment $apartment): Response
+    {
+        if ($soldAt = $apartment->sold_at) {
+            return Response::deny($this->apartmentSoldMessage($soldAt));
+        }
+
+        return Response::allow();
+    }
+
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Apartment  $apartment
+     * @param \App\Models\User $user
+     * @param \App\Models\Apartment $apartment
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(User $user, Apartment $apartment): Response
@@ -85,8 +104,8 @@ class ApartmentPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Apartment  $apartment
+     * @param \App\Models\User $user
+     * @param \App\Models\Apartment $apartment
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function restore(User $user, Apartment $apartment): Response
@@ -99,12 +118,19 @@ class ApartmentPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Apartment  $apartment
+     * @param \App\Models\User $user
+     * @param \App\Models\Apartment $apartment
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function forceDelete(User $user, Apartment $apartment): bool
     {
         return $user->id === $apartment->owner()->getResults()->id;
+    }
+
+    private function apartmentSoldMessage(string $soldAt): string
+    {
+        $dateFormatted = (new \DateTimeImmutable($soldAt))->format('F d, Y \y\e\a\r');
+
+        return sprintf('Was sold %s', $dateFormatted);
     }
 }

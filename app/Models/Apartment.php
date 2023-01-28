@@ -45,6 +45,17 @@ class Apartment extends Model
         return $builder->orderByDesc('created_at');
     }
 
+    public function scopeWithoutSold(Builder $builder): Builder
+    {
+//        return $builder->doesntHave('offers')
+//            ->orWhereHas(
+//                'offers',
+//                fn(Builder $builder) => $builder->whereNull('accepted_at')
+//                    ->whereNull('rejected_at')
+//            );
+        return $builder->whereNull('sold_at');
+    }
+
     public function scopeFilters(Builder $builder, array $filters): Builder
     {
         return $builder->when(
@@ -79,7 +90,6 @@ class Apartment extends Model
                 fn($query, $value) => \in_array($value, $this->sortable)
                     ? $query->orderBy($value, ($filters['order'] ?? 'desc'))
                     : $query
-            )
-            ;
+            );
     }
 }

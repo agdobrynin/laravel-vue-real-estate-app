@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col-reverse md:grid md:grid-cols-12 gap-4">
-    <Box class="md:col-span-7 flex w-full">
+    <box class="md:col-span-7 flex w-full">
       <div v-if="apartment.images.length">
         <section class="overflow-hidden text-gray-700">
           <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
             <div class="flex flex-wrap -m-1 md:-m-2">
-              <div v-for="image in apartment.images" :key="image.id" class="flex flex-wrap md:w-1/2 lg:w-1/3">
+              <div v-for="image in apartment.images" :key="image.id" class="flex flex-wrap md:w-1/2">
                 <div class="w-full p-1 md:p-2">
                   <img
                     :alt="image.filename"
@@ -21,9 +21,9 @@
       <div v-else class="w-full text-center font-medium text-gray-500">
         No images
       </div>
-    </Box>
+    </box>
     <div class="md:col-span-5 flex flex-col gap-4">
-      <Box>
+      <box>
         <template #header>Basic info</template>
         <price
           :price="apartment.price"
@@ -46,8 +46,8 @@
           :code="apartment.code"
           class="text-gray-500"
         />
-      </Box>
-      <Box>
+      </box>
+      <box>
         <template #header>Monthly payment</template>
         <div>
           <label class="label">Interest range ({{ interestRate }} %)</label>
@@ -84,7 +84,14 @@
             Total interested:
           </price>
         </div>
-      </Box>
+      </box>
+      <offer-make
+        v-if="user && offerMade === null"
+        :apartment-id="apartment.id"
+        :price="apartment.price"
+        @offer-price-update="offerPrice"
+      />
+      <offer-made v-if="offerMade" :offer-made="offerMade" />
     </div>
   </div>
 </template>
@@ -94,7 +101,7 @@ import ApartmentAddress from '@/Components/ApartmentAddress.vue'
 import Price from '@/Components/Price.vue'
 import ApartmentSpace from '@/Components/ApartmentSpace.vue'
 import Box from '@/Components/UI/Box.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import {
     defaultDuration,
     defaultInterestRate,
@@ -102,11 +109,21 @@ import {
     maxInterestRate,
     useMonthlyPayment,
 } from '@/Composables/useMonthlyPayment'
+import OfferMake from '@/Pages/Apartment/Show/Components/OfferMake.vue'
+import { usePage } from '@inertiajs/vue3'
+import OfferMade from '@/Pages/Apartment/Show/Components/OfferMade.vue'
 
-const props = defineProps({ apartment: Object })
+const props = defineProps({
+    apartment: Object,
+    offerMade: { type: [Object, null] },
+})
 
 const interestRate = ref(defaultInterestRate)
 const duration = ref(defaultDuration)
+const apartmentPrice = ref(props.apartment.price)
 
-const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(props.apartment.price, interestRate, duration)
+const user = computed(() => usePage().props.user)
+const offerPrice = (value) => apartmentPrice.value = value
+
+const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(apartmentPrice, interestRate, duration)
 </script>

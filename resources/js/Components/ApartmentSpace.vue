@@ -1,10 +1,10 @@
 <template>
   <div>
-    <span class="font-bold">{{ beds }}</span> beds <span v-if="showIcons">🛌</span>
+    <span v-if="showIcons">🛌</span> <span class="font-bold">{{ beds }}</span> beds
     <Delimiter class="ml-2" />
-    <span class="font-bold">{{ baths }}</span> baths <span v-if="showIcons">🛀</span>
+    <span v-if="showIcons">🛀</span> <span class="font-bold">{{ baths }}</span> baths
     <Delimiter class="ml-2" />
-    <span class="font-bold">{{ area }}</span> m&nbsp;<sup>2</sup> <span v-if="showIcons">🏠</span>
+    <span v-if="showIcons">🟦</span> <span class="font-bold">{{ area }}</span> m&nbsp;<sup>2</sup>
   </div>
 </template>
 
