@@ -24,7 +24,7 @@
     </box>
     <div class="md:col-span-5 flex flex-col gap-4">
       <box>
-        <template #header>Basic info</template>
+        <template #header>Basic info from user <span class="font-bold">{{ apartment.owner.name }}</span> </template>
         <price
           :price="apartment.price"
           class="block mb-4 text-2xl font-bold"
@@ -85,13 +85,20 @@
           </price>
         </div>
       </box>
-      <offer-make
-        v-if="user && offerMade === null"
-        :apartment-id="apartment.id"
-        :price="apartment.price"
-        @offer-price-update="offerPrice"
-      />
-      <offer-made v-if="offerMade" :offer-made="offerMade" />
+      <div v-if="apartment.sold_at === null">
+        <offer-make
+          v-if="user && offerMade === null"
+          :apartment-id="apartment.id"
+          :price="apartment.price"
+          @offer-price-update="offerPrice"
+        />
+        <offer-made v-if="offerMade" :offer-made="offerMade" />
+      </div>
+      <div v-else>
+        <box>
+          <div class="text-green-600 dark:text-green-200 text-center border border-green-700 border-dashed px-1 py-1 rounded-xl uppercase"> sold </div>
+        </box>
+      </div>
     </div>
   </div>
 </template>

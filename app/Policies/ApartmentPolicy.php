@@ -13,7 +13,7 @@ class ApartmentPolicy
 
     public function before(?User $user, $ability): ?Response
     {
-        if ($user?->is_admin && !\in_array($ability, ['update', 'view'])) {
+        if ($user?->is_admin && !\in_array($ability, ['update', 'view', 'make-offer'])) {
             return Response::allow();
         }
 

@@ -37,7 +37,8 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment): Response|ResponseFactory
     {
-        $apartment->load(['images']);
+        $apartment->load(['images', 'owner']);
+
         $offerMade = Auth::user()
             ? $apartment->offers()->offerByUser(Auth::user())->first()
             : null;
