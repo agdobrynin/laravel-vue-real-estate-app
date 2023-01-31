@@ -10,6 +10,18 @@
         </div>
         <div v-if="user" class="flex items-center gap-4">
           <Link
+            :href="route('notification.index')"
+            class="flex justify-between relative text-gray-500 pr-2 py-2 text-lg"
+          >
+            <div class="w-7">🔔</div>
+            <div
+              v-if="notificationCounf"
+              class="absolute right-0 pl-0.5 overflow-hidden mt-1 pt-0.5 top-0 w-6 h-6 bg-red-700 dark:bg-red-400 text-white font-medium border border-white dark:border-gray-900 rounded-full text-xs text-center"
+            >
+              {{ notificationCounf }}
+            </div>
+          </Link>
+          <Link
             class="text-sm text-gray-500 underline underline-offset-4"
             :href="route('realtor.apartment.index')"
           >
@@ -23,7 +35,14 @@
             apartment
           </Link>
           <div>
-            <Link :href="route('logout')" method="delete" as="button" class="underline underline-offset-4">Logout</Link>
+            <Link
+              :href="route('logout')"
+              method="delete"
+              as="button"
+              class="underline underline-offset-4"
+            >
+              Logout
+            </Link>
           </div>
         </div>
         <div v-else class="flex items-center gap-4">
@@ -50,4 +69,5 @@ import { computed } from 'vue'
 
 const flashSuccess = computed(() => usePage().props.flash.success)
 const user = computed(() => usePage().props.user)
+const notificationCounf = computed(() => Math.min(usePage().props.user.notificationCount, 9))
 </script>

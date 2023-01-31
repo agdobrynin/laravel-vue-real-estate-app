@@ -36,11 +36,18 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $userData = null;
+
+        if ($user = $request->user()) {
+            $userData = $user->only('id', 'name', 'email');
+            $userData['notificationCount'] = $user->unreadNotifications()->count();
+        }
+
         return array_merge(parent::share($request), [
             'flash' => [
                 'success' => $request->session()->get('success'),
             ],
-            'user' => $request->user() ? $request->user()->only('id', 'name', 'email') : null,
+            'user' => $userData,
         ]);
     }
 }

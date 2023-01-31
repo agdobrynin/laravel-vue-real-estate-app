@@ -4,7 +4,7 @@
     <Delimiter class="ml-2" />
     <span v-if="showIcons">🛀</span> <span class="font-bold">{{ baths }}</span> baths
     <Delimiter class="ml-2" />
-    <span v-if="showIcons">🟦</span> <span class="font-bold">{{ area }}</span> m&nbsp;<sup>2</sup>
+    <span v-if="showIcons">🟫</span> <span class="font-bold">{{ area }}</span> m&nbsp;<sup>2</sup>
   </div>
 </template>
 

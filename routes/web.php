@@ -4,6 +4,8 @@ use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ApartmentOfferController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\NotificationSeenController;
 use App\Http\Controllers\RealtorAcceptOfferController;
 use App\Http\Controllers\RealtorApartmentController;
 use App\Http\Controllers\RealtorApartmentImageController;
@@ -57,4 +59,13 @@ Route::prefix('realtor')
         Route::resource('apartment.image', RealtorApartmentImageController::class)
             ->only(['create', 'store', 'destroy'])
             ->withTrashed(['create', 'store', 'destroy']);
+
     });
+
+Route::resource('notification', NotificationController::class)
+    ->middleware('auth')
+    ->only(['index']);
+
+Route::put('/notification/{notification}/seen', NotificationSeenController::class)
+    ->name('notification.seen')
+    ->middleware('auth');

@@ -6,7 +6,7 @@
   <div v-if="list.last_page > 1" class="w-full flex justify-center mt-8 mb-8">
     <pagination :links="list.links" />
   </div>
-  <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <section v-if="list.data.length" class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <box v-for="item in list.data" :key="item.id" :class="setBorder(item)">
       <div class="flex flex-col md:flex-row gap-2 md:items-center justify-between">
         <div :class="setBorderOpacity(item)">
@@ -80,6 +80,9 @@
         </section>
       </div>
     </box>
+  </section>
+  <section v-else>
+    <box>Empty list</box>
   </section>
   <div v-if="list.last_page > 1" class="w-full flex justify-center mt-8 mb-8">
     <pagination :links="list.links" />

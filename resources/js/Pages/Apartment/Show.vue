@@ -47,7 +47,7 @@
           class="text-gray-500"
         />
       </box>
-      <box>
+      <box v-if="apartment.sold_at === null">
         <template #header>Monthly payment</template>
         <div>
           <label class="label">Interest range ({{ interestRate }} %)</label>
