@@ -85,7 +85,7 @@
           </price>
         </div>
       </box>
-      <div v-if="apartment.sold_at === null">
+      <div v-if="apartment.sold_at === null && user.id !== apartment.owner.id">
         <offer-make
           v-if="user && offerMade === null"
           :apartment-id="apartment.id"
@@ -94,7 +94,7 @@
         />
         <offer-made v-if="offerMade" :offer-made="offerMade" />
       </div>
-      <div v-else>
+      <div v-if="apartment.sold_at">
         <box>
           <div class="text-green-600 dark:text-green-200 text-center border border-green-700 border-dashed px-1 py-1 rounded-xl uppercase"> sold </div>
         </box>

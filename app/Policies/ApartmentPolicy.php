@@ -84,6 +84,10 @@ class ApartmentPolicy
             return Response::deny($this->apartmentSoldMessage($soldAt));
         }
 
+        if ($user->id === $apartment->owner->id) {
+            return Response::deny('You are owner this apartment');
+        }
+
         return Response::allow();
     }
 
