@@ -16,16 +16,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(3)
-            ->create()
-            ->each(static function (User $user, $index) {
-                Apartment::factory(rand(4, 12), ['by_user_id' => $user->id])->create();
+        User::factory()->create([
+            'email' => 'email@email.com',
+            'is_admin' => true
+        ]);
 
-                if (0 === $index) {
-                    $user->email = 'email@email.com';
-                    $user->is_admin = true;
-                    $user->save();
-                }
-            });
+
+        User::factory()
+            ->count(3)
+            ->has(
+                Apartment::factory(10)
+            )
+            ->create();
     }
 }

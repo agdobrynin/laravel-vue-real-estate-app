@@ -75,7 +75,7 @@ class ApartmentPolicy
     {
         return $user->id === $apartment->owner()->getResults()->id
             ? Response::allow()
-            : Response::deny('Can\'t access to edit');
+            : Response::deny('Can\'t access');
     }
 
     public function makeOffer(User $user, Apartment $apartment): Response

@@ -47,6 +47,8 @@ class RealtorApartmentController extends Controller
 
     public function show(Apartment $apartment): Response|ResponseFactory
     {
+        $this->authorize('update', $apartment);
+
         $apartment = $apartment->load('offers', 'offers.offeredByUser');
 
         return inertia('Realtor/Show', ['apartment' => $apartment]);
