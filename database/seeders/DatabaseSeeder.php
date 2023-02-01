@@ -17,16 +17,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory()->create([
-            'email' => 'email@email.com',
+            'email' => 'admin@email.com',
             'is_admin' => true
         ]);
 
-
-        User::factory()
-            ->count(3)
-            ->has(
-                Apartment::factory(10)
-            )
-            ->create();
+        foreach (['email@email.com', 'email2@email.com', 'email3@email.com'] as $email) {
+            User::factory()->has(
+                Apartment::factory(rand(50, 90))
+            )->create(['email' => $email]);
+        }
     }
 }

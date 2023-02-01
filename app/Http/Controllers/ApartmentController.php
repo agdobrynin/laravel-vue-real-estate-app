@@ -23,7 +23,8 @@ class ApartmentController extends Controller
         $query = Apartment::SortByCreated()
             ->filters($filters)
             ->withoutSold()
-            ->paginate(8)
+            ->paginate(9)
+            ->onEachSide(1)
             ->withQueryString();
 
         return inertia('Apartment/Index', [
