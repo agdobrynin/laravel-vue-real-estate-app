@@ -3,10 +3,10 @@
     <div class="container mx-auto">
       <nav class="p-4 flex items-center justify-between">
         <div class="text-lg font-medium">
-          <Link :href="route('apartment.index')">Show apartments</Link>
+          <Link :href="route('apartment.index')">Offer list</Link>
         </div>
         <div class="text-xl font-bold text-center text-indigo-600 dark:text-indigo-300">
-          <Link :href="route('index')">Larazilla</Link>
+          <Link :href="route('index')">Real estate agency</Link>
         </div>
         <div v-if="user" class="flex items-center gap-4">
           <Link
@@ -22,17 +22,16 @@
             </div>
           </Link>
           <Link
-            class="text-sm text-gray-500 underline underline-offset-4"
+            class="text-indigo-700 underline underline-offset-4 dark:text-indigo-400"
             :href="route('realtor.apartment.index')"
           >
             {{ user.name }}
           </Link>
           <Link
             :href="route('realtor.apartment.create')"
-            class="button-primary"
+            class="underline underline-offset-4 text-red-700 dark:text-red-500"
           >
-            ➕ Create
-            apartment
+            Add apartment
           </Link>
           <div>
             <Link

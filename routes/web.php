@@ -80,3 +80,9 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
     return redirect()->route('apartment.index')->with('success', 'Email was verified');
 })->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (\Illuminate\Http\Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return redirect()->route('apartment.index')->with('success', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
