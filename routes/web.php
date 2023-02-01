@@ -10,7 +10,9 @@ use App\Http\Controllers\RealtorAcceptOfferController;
 use App\Http\Controllers\RealtorApartmentController;
 use App\Http\Controllers\RealtorApartmentImageController;
 use App\Http\Controllers\UserAccountController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,12 +38,12 @@ Route::resource('user-account', UserAccountController::class)
     ->only(['create', 'store']);
 
 Route::resource('apartment.offer', ApartmentOfferController::class)
-    ->middleware('auth')
+    ->middleware(['auth', 'verified'])
     ->only(['store']);
 
 Route::prefix('realtor')
     ->name('realtor.')
-    ->middleware('auth')
+    ->middleware(['auth', 'verified'])
     ->group(function () {
         Route::name('apartment.restore')
             ->put('apartment/{apartment}/restore', [RealtorApartmentController::class, 'restore'])
@@ -63,9 +65,18 @@ Route::prefix('realtor')
     });
 
 Route::resource('notification', NotificationController::class)
-    ->middleware('auth')
+    ->middleware(['auth', 'verified'])
     ->only(['index']);
 
 Route::put('/notification/{notification}/seen', NotificationSeenController::class)
     ->name('notification.seen')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
+
+Route::get('/email/verify', fn () =>  Inertia::render('Auth/VerifyEmail'))
+    ->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect()->route('apartment.index')->with('success', 'Email was verified');
+})->middleware(['auth', 'signed'])->name('verification.verify');

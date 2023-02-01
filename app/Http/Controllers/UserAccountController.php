@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,7 @@ class UserAccountController extends Controller
             'password' => 'required|string|min:6|confirmed'
         ]));
 
+        event(new Registered($user));
         Auth::login($user);
 
         return redirect()->route('apartment.index')
