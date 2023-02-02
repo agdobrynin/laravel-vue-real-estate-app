@@ -117,7 +117,6 @@ composer install
 ##### Выполнить миграции и заплнить тестовыми данными проект
 
 Запустить команду
-
 ```shell
 ./vendor/bin/sail artisan migrate --seed
 ```
