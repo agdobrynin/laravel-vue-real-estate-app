@@ -80,6 +80,7 @@ cp .env.example .env
 
 ```shell
 docker run --rm --interactive --tty \
+  -u "$(id -u):$(id -g)" \
   --volume $PWD:/app \
   composer install
 ```
