@@ -107,6 +107,11 @@ composer install
 по набору команд можно узнать на сайте
 [Laravel Sail](https://laravel.com/docs/9.x/sail)
 
+Сгенерировать application key
+```shell
+./vendor/bin/sail artisan key:generate
+```
+
 ##### Сборка фронт части
 
 Собрать фронт командой
